@@ -6,9 +6,8 @@ import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 public class Task {
 	
-	private int taskId;
+	private Long taskId;
 	private String taskName;
-	
 	private TaskStatus taskStatus;
 	
 	
@@ -17,21 +16,16 @@ public class Task {
 	}
 
 
-	public Task(int taskId, String taskName) {
+	public Task(Long taskId, String taskName, TaskStatus taskStatus) {
 		super();
 		this.taskId = taskId;
 		this.taskName = taskName;
-		this.taskStatus = TaskStatus.PENDING; // tarefa começa como pendente
+		this.taskStatus = taskStatus;
 	}
 
 
-	public int getTaskId() {
+	public Long getTaskId() {
 		return taskId;
-	}
-
-
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
 	}
 
 
@@ -53,24 +47,4 @@ public class Task {
 	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(taskId);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Task other = (Task) obj;
-		return Objects.equals(taskId, other.taskId);
-	}
-
 }

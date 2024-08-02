@@ -2,69 +2,80 @@ package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.ArrayList;
 
-import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
-
 public class Race {
 	
-	// essa classe adiciona, remove, gerencia status das tarefas
-	
 	private Long raceId;
+	private Integer doneTasks = 0;
+	private Integer taskQuantity = 0;
+	// private Boolean raceStatus = true ou false para saber se a corrida ta correndo ou n
 	
-	private ArrayList<Task> listOfTasks = new ArrayList<>(); 
+	private RaceCentral raceCentral;
+	public ArrayList<Task> taskList = new ArrayList<Task>();
+ 	
 	
 	
+
+
 	public Race() {
 		
 	}
 
-
-	public Race(ArrayList<Task> listOfTasks) {
+	
+	public Race(Long raceId, Integer doneTasks, Integer taskQuantity) {
 		super();
-		this.listOfTasks = listOfTasks;
+		this.raceId = raceId;
+		this.doneTasks = doneTasks;
+		this.taskQuantity = taskQuantity;
 	}
 
 
-	
-	public ArrayList<Task> getListOfTasks() {
-		return listOfTasks;
+	public Long getRaceId() {
+		return raceId;
 	}
-	
-	public Integer getTotalTasks() {
-		return listOfTasks.size();
-	}
-	
-	
+
+
 	public Integer getDoneTasks() {
-		Integer doneTasks = 0;
-		for (Task tk : listOfTasks) {
-			if (tk.getTaskStatus().equals(TaskStatus.DONE)) {
-				doneTasks += 1;
-			}
-			else {
-			}
-		}
-		
 		return doneTasks;
+	}
+
+
+	public void setDoneTasks(Integer doneTasks) {
+		this.doneTasks = doneTasks;
+	}
+
+
+	public Integer getTaskQuantity() {
+		return taskQuantity;
+	}
+
+
+	public void setTaskQuantity(Integer taskQuantity) {
+		this.taskQuantity = taskQuantity;
+	}
+	
+	
+	public RaceCentral getRaceCentral() {
+		return raceCentral;
+	}
+
+
+	public ArrayList<Task> getTaskList() {
+		return taskList;
 	}
 	
 	
 	public void addTask(Task task) {
-		listOfTasks.add(task);
-	}
-	
-	public void removeTask(int taskId) {
-		listOfTasks.remove(taskId);
-	}
-	
-	public void clearList() {
-		listOfTasks.clear();
+		taskList.add(task);
 	}
 	
 	
-	public void changeTaskStatus(int taskId, TaskStatus taskStatus) {
-		listOfTasks.get(taskId).setTaskStatus(taskStatus);
+	public void removeTask(Long taskId) {
+		for (Task tk : taskList) {
+			if (tk.getTaskId().equals(taskId)) {
+				taskList.remove(tk);
+			}
+		}
 	}
 	
-	
-
+		
 }

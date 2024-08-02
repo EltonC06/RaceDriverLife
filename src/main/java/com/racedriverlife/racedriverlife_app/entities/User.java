@@ -3,10 +3,9 @@ package com.racedriverlife.racedriverlife_app.entities;
 import java.util.Objects;
 
 public class User {
-	
+
 	private Long userId;
-	private String name;
-	private String email;
+	private String userName;
 	private String password;
 	
 	private RaceCentral raceCentral;
@@ -17,13 +16,11 @@ public class User {
 	}
 
 
-	public User(Long userId, String name, String email, String password, RaceCentral raceCentral) {
+	public User(Long userId, String userName, String password) {
 		super();
 		this.userId = userId;
-		this.name = name;
-		this.email = email;
+		this.userName = userName;
 		this.password = password;
-		this.raceCentral = raceCentral;
 	}
 
 
@@ -32,28 +29,13 @@ public class User {
 	}
 
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public String getUserName() {
+		return userName;
 	}
 
 
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
@@ -65,42 +47,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-	public RaceCentral getRaceCentral() {
-		return raceCentral;
+	
+	
+	public void resetStorage() {
+		raceCentral.setRacesDisputed(0);
+		raceCentral.setRacesWon(0);
+		
+		//raceCentral.endrace();
 	}
 
-
-	public void setRaceCentral(RaceCentral raceCentral) {
-		this.raceCentral = raceCentral;
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(userId, other.userId);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
