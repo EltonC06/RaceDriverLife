@@ -1,12 +1,10 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
-import java.util.Objects;
-
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 public class Task {
 	
-	private Long taskId;
+	private Integer taskId;
 	private String taskName;
 	private TaskStatus taskStatus;
 	
@@ -16,7 +14,7 @@ public class Task {
 	}
 
 
-	public Task(Long taskId, String taskName, TaskStatus taskStatus) {
+	public Task(Integer taskId, String taskName, TaskStatus taskStatus) {
 		super();
 		this.taskId = taskId;
 		this.taskName = taskName;
@@ -24,7 +22,7 @@ public class Task {
 	}
 
 
-	public Long getTaskId() {
+	public Integer getTaskId() {
 		return taskId;
 	}
 

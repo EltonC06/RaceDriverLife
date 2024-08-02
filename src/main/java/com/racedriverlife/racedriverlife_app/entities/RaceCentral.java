@@ -2,6 +2,8 @@ package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.ArrayList;
 
+import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
+
 public class RaceCentral {
 	
 	private Long centralId;
@@ -43,6 +45,37 @@ public class RaceCentral {
 		this.racesDisputed = racesDisputed;
 	}
 	
+	
+	public void createRace(ArrayList<String> tasksName) {
+		endRace();
+		for (String taskName : tasksName) {
+			race.addTask(new Task(null, taskName, TaskStatus.PENDING)); // tenho que permitir o banco de dados gerar o id da tarefa automaticamente de alguma forma
+		}
+		race.setIsActive(true);
+	}
+	
+	public void endRace() {
+		countPoints();
+		resetRace();
+	}
+	
+	private void countPoints() {
+		this.racesDisputed += 1;
+		if (race.getTaskQuantity().equals(race.countCompletedTasks())) {
+			this.racesWon += 1;
+		}
+		else {
+			
+		}
+	}
+	
+	private void resetRace() {
+		race.setDoneTasks(0);
+		race.setTaskQuantity(0);
+		race.setIsActive(false);
+		race.resetTaskList();
+
+	}
 
 	
 	

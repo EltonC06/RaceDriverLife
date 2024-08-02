@@ -1,6 +1,5 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
-import java.util.Objects;
 
 public class User {
 
@@ -52,8 +51,7 @@ public class User {
 	public void resetStorage() {
 		raceCentral.setRacesDisputed(0);
 		raceCentral.setRacesWon(0);
-		
-		//raceCentral.endrace();
+		raceCentral.endRace();
 	}
 
 }
