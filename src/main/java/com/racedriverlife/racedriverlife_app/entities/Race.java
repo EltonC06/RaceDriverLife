@@ -4,14 +4,25 @@ import java.util.ArrayList;
 
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
+@Table(name = "tb_race")
 public class Race {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long raceId;
 	private Integer doneTasks = 0;
 	private Integer taskQuantity = 0;
 	private Boolean isActive = false;
 	
-	private RaceCentral raceCentral;
+	@Transient
 	public ArrayList<Task> taskList = new ArrayList<Task>();
  	
 	public Race() {
@@ -50,11 +61,6 @@ public class Race {
 
 	public void setTaskQuantity(Integer taskQuantity) {
 		this.taskQuantity = taskQuantity;
-	}
-	
-	
-	public RaceCentral getRaceCentral() {
-		return raceCentral;
 	}
 
 

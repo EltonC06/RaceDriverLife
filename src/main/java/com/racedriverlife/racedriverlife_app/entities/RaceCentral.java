@@ -4,13 +4,26 @@ import java.util.ArrayList;
 
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_race_central")
 public class RaceCentral {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long centralId;
 	private Integer racesWon = 0;
 	private Integer racesDisputed = 0;
 	
-	private User user;
+	@OneToOne
+	@JoinColumn(name = "race_id")
 	private Race race;
 	
 	public RaceCentral() {
