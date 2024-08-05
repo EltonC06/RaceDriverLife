@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,22 +20,26 @@ public class RaceCentral {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long centralId;
+	
 	private Integer racesWon = 0;
+	
 	private Integer racesDisputed = 0;
 	
-	@OneToOne
-	@JoinColumn(name = "race_id")
+	@OneToOne(cascade = CascadeType.ALL) // a classe Race não pode existir sem essa
+	@JoinColumn(name = "race_id", nullable = false)
 	private Race race;
+	
+	
 	
 	public RaceCentral() {
 		
 	}
 
-	public RaceCentral(Long centralId, Integer racesWon, Integer racesDisputed) {
+	public RaceCentral(Integer racesWon, Integer racesDisputed, Race race) {
 		super();
-		this.centralId = centralId;
 		this.racesWon = racesWon;
 		this.racesDisputed = racesDisputed;
+		this.race = race;
 	}
 
 	public Long getCentralId() {
@@ -58,11 +63,20 @@ public class RaceCentral {
 		this.racesDisputed = racesDisputed;
 	}
 	
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
 	
+	
+
 	public void createRace(ArrayList<String> tasksName) {
 		endRace();
 		for (String taskName : tasksName) {
-			race.addTask(new Task(null, taskName, TaskStatus.PENDING)); // tenho que permitir o banco de dados gerar o id da tarefa automaticamente de alguma forma
+			race.addTask(new Task(taskName, TaskStatus.PENDING, race)); // tenho que permitir o banco de dados gerar o id da tarefa automaticamente de alguma forma
 		}
 		race.setIsActive(true);
 	}

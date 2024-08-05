@@ -1,5 +1,6 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
@@ -20,20 +21,22 @@ public class Task {
 	private String taskName;
 	private TaskStatus taskStatus;
 	
-	@ManyToOne
-	@JoinColumn(name = "race_id")
+	@ManyToOne // muitas tarefas podem estar associada a uma unica corrida
+	@JoinColumn(name = "race_id", nullable=false) // so pode ser criada se tem uma classe race associada
+	@JsonIgnore
 	private Race race;
+	// na classe que não tem a lista
 	
 	public Task() {
 		
 	}
 
 
-	public Task(Integer taskId, String taskName, TaskStatus taskStatus) {
+	public Task(String taskName, TaskStatus taskStatus, Race race) {
 		super();
-		this.taskId = taskId;
 		this.taskName = taskName;
 		this.taskStatus = taskStatus;
+		this.race = race;
 	}
 
 

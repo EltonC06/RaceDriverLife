@@ -1,5 +1,7 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,10 +17,13 @@ public class User {
 	@Id // definindo chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
+	
+	@Column(nullable = false)
 	private String userName;
+	
 	private String password;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
 	@JoinColumn(name = "race_central_id", nullable = false)
 	private RaceCentral raceCentral;
 	
@@ -28,11 +33,11 @@ public class User {
 	}
 
 
-	public User(Long userId, String userName, String password) {
+	public User(String userName, String password, RaceCentral raceCentral) {
 		super();
-		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
+		this.raceCentral = raceCentral;
 	}
 
 
@@ -60,7 +65,17 @@ public class User {
 		this.password = password;
 	}
 	
-	
+
+	public RaceCentral getRaceCentral() {
+		return raceCentral;
+	}
+
+
+	public void setRaceCentral(RaceCentral raceCentral) {
+		this.raceCentral = raceCentral;
+	}
+
+
 	public void resetStorage() {
 		raceCentral.setRacesDisputed(0);
 		raceCentral.setRacesWon(0);

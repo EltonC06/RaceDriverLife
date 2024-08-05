@@ -8,8 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_race")
@@ -21,18 +21,19 @@ public class Race {
 	private Integer doneTasks = 0;
 	private Integer taskQuantity = 0;
 	private Boolean isActive = false;
-	
-	@Transient
+
+	@OneToMany(mappedBy = "race") // uma corrida pode estar associada a varias tarefas
+	// mapear e botar o nome de quem está mapeando essa classe
 	public ArrayList<Task> taskList = new ArrayList<Task>();
- 	
+	// corrida não recebe id das tarefas (para não criar uma lista)
+	
 	public Race() {
 		
 	}
 
 	
-	public Race(Long raceId, Integer doneTasks, Integer taskQuantity) {
+	public Race(Integer doneTasks, Integer taskQuantity) {
 		super();
-		this.raceId = raceId;
 		this.doneTasks = doneTasks;
 		this.taskQuantity = taskQuantity;
 		this.setIsActive(true);
@@ -67,7 +68,8 @@ public class Race {
 	public ArrayList<Task> getTaskList() {
 		return taskList;
 	}
-	
+
+
 	public Boolean getIsActive() {
 		return isActive;
 	}
