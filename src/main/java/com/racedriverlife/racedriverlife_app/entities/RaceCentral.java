@@ -21,9 +21,9 @@ public class RaceCentral {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long centralId;
 	
-	private Integer racesWon = 0;
+	private Integer racesWon;
 	
-	private Integer racesDisputed = 0;
+	private Integer racesDisputed;
 	
 	@OneToOne(cascade = CascadeType.ALL) // a classe Race não pode existir sem essa
 	@JoinColumn(name = "race_id", nullable = false)
@@ -35,10 +35,10 @@ public class RaceCentral {
 		
 	}
 
-	public RaceCentral(Integer racesWon, Integer racesDisputed, Race race) {
+	public RaceCentral(Race race) {
 		super();
-		this.racesWon = racesWon;
-		this.racesDisputed = racesDisputed;
+		this.racesWon = 0;
+		this.racesDisputed = 0;
 		this.race = race;
 	}
 
@@ -76,7 +76,7 @@ public class RaceCentral {
 	public void createRace(ArrayList<String> tasksName) {
 		endRace();
 		for (String taskName : tasksName) {
-			race.addTask(new Task(taskName, TaskStatus.PENDING, race)); // tenho que permitir o banco de dados gerar o id da tarefa automaticamente de alguma forma
+			race.addTask(new Task(taskName, race));
 		}
 		race.setIsActive(true);
 	}
@@ -92,8 +92,8 @@ public class RaceCentral {
 			this.racesWon += 1;
 		}
 		else {
-			
 		}
+		
 	}
 	
 	private void resetRace() {

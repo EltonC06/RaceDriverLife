@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.racedriverlife.racedriverlife_app.entities.Task;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Integer> { // passa a classe e o tipo do seu id
+public interface TaskRepository extends JpaRepository<Task, Long> { // passa a classe e o tipo do seu id
 
 }

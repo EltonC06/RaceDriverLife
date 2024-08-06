@@ -1,6 +1,5 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
@@ -17,30 +16,30 @@ public class Task {
 	
 	@Id // é uma chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // gerar id automatico
-	private Integer taskId;
+	private Long taskId;
 	private String taskName;
-	private TaskStatus taskStatus;
 	
-	@ManyToOne // muitas tarefas podem estar associada a uma unica corrida
-	@JoinColumn(name = "race_id", nullable=false) // so pode ser criada se tem uma classe race associada
-	@JsonIgnore
+	private String taskStatus;
+	
+	// muitas tarefas podem estar associada a uma unica corrida
+	@ManyToOne
+	@JoinColumn(name = "race_id", referencedColumnName = "raceId") // so pode ser criada se tem uma classe race associada
 	private Race race;
-	// na classe que não tem a lista
 	
 	public Task() {
 		
 	}
 
 
-	public Task(String taskName, TaskStatus taskStatus, Race race) {
+	public Task(String taskName, Race race) {
 		super();
 		this.taskName = taskName;
-		this.taskStatus = taskStatus;
+		this.taskStatus = TaskStatus.PENDING.name();
 		this.race = race;
 	}
 
 
-	public Integer getTaskId() {
+	public Long getTaskId() {
 		return taskId;
 	}
 
@@ -54,13 +53,24 @@ public class Task {
 		this.taskName = taskName;
 	}
 
-
-	public TaskStatus getTaskStatus() {
+	public String getTaskStatus() {
 		return taskStatus;
 	}
 
 
-	public void setTaskStatus(TaskStatus taskStatus) {
+	public void setTaskStatus(String taskStatus) {
 		this.taskStatus = taskStatus;
 	}
+
+
+	public Race getRace() {
+		return race;
+	}
+
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
+	
+	
 }

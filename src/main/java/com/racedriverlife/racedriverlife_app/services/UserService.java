@@ -14,7 +14,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository; // para poder se comunicar com BD
 	
-	
 	// 3 metodos essenciais
 	public List<User> getAllUsers() {
 		return this.userRepository.findAll();

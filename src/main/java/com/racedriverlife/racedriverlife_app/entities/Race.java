@@ -1,7 +1,9 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
@@ -18,25 +20,22 @@ public class Race {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long raceId;
-	private Integer doneTasks = 0;
-	private Integer taskQuantity = 0;
+	private Integer doneTasks;
+	private Integer taskQuantity;
 	private Boolean isActive = false;
-
+	
 	@OneToMany(mappedBy = "race") // uma corrida pode estar associada a varias tarefas
-	// mapear e botar o nome de quem está mapeando essa classe
-	public ArrayList<Task> taskList = new ArrayList<Task>();
+	@JsonIgnore
+	public List<Task> taskList; // program to interface
 	// corrida não recebe id das tarefas (para não criar uma lista)
 	
-	public Race() {
-		
-	}
 
-	
-	public Race(Integer doneTasks, Integer taskQuantity) {
+	public Race() {
 		super();
-		this.doneTasks = doneTasks;
-		this.taskQuantity = taskQuantity;
+		this.doneTasks = 0;
+		this.taskQuantity = 0;
 		this.setIsActive(true);
+		this.taskList = new ArrayList<Task>();
 	}
 
 
@@ -65,11 +64,10 @@ public class Race {
 	}
 
 
-	public ArrayList<Task> getTaskList() {
+	public List<Task> getTaskList() {
 		return taskList;
 	}
-
-
+	
 	public Boolean getIsActive() {
 		return isActive;
 	}
@@ -92,7 +90,7 @@ public class Race {
 		}
 	}
 	
-	public void changeTaskStatus(TaskStatus taskStatus, Integer taskId) {
+	public void changeTaskStatus(String taskStatus, Integer taskId) {
 		taskList.get(taskId).setTaskStatus(taskStatus);
 
 	}
@@ -109,7 +107,6 @@ public class Race {
 	
 	protected void resetTaskList() {
 		taskList.clear();
-		setIsActive(false);
 	}
 
 

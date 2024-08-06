@@ -12,19 +12,18 @@ import com.racedriverlife.racedriverlife_app.repositories.TaskRepository;
 public class TaskService {
 	
 	@Autowired
-	TaskRepository taskRepository;
+	private TaskRepository taskRepository;
 	
+
 	public List<Task> getAllTasks() {
-		return taskRepository.findAll();
+		return this.taskRepository.findAll();
 	}
 	
-	/*
 	public Task getTaskById(Long id) {
-		return taskRepository.findById(id);
+		return this.taskRepository.findById(id).get();
 	}
-	*/
-	
+		
 	public Task saveTask(Task task) {
-		return taskRepository.save(task);
+		return this.taskRepository.save(task);
 	}
 }
