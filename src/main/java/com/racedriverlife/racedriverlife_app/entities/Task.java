@@ -1,5 +1,7 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
+import java.util.Objects;
+
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
@@ -43,11 +45,9 @@ public class Task {
 		return taskId;
 	}
 
-
 	public String getTaskName() {
 		return taskName;
 	}
-
 
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
@@ -57,20 +57,37 @@ public class Task {
 		return taskStatus;
 	}
 
-
 	public void setTaskStatus(String taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-
 
 	public Race getRace() {
 		return race;
 	}
 
-
 	public void setRace(Race race) {
 		this.race = race;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(taskId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Task other = (Task) obj;
+		return Objects.equals(taskId, other.taskId);
+	}
+	
+	
 	
 	
 }

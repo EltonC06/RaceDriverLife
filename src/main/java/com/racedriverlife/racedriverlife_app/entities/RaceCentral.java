@@ -1,8 +1,7 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.ArrayList;
-
-import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -102,6 +101,23 @@ public class RaceCentral {
 		race.setIsActive(false);
 		race.resetTaskList();
 
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(centralId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RaceCentral other = (RaceCentral) obj;
+		return Objects.equals(centralId, other.centralId);
 	}
 
 	

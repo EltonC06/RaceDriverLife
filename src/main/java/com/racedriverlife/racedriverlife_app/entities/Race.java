@@ -2,6 +2,7 @@ package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
@@ -38,31 +39,25 @@ public class Race {
 		this.taskList = new ArrayList<Task>();
 	}
 
-
 	public Long getRaceId() {
 		return raceId;
 	}
-
 
 	public Integer getDoneTasks() {
 		return doneTasks;
 	}
 
-
 	public void setDoneTasks(Integer doneTasks) {
 		this.doneTasks = doneTasks;
 	}
-
 
 	public Integer getTaskQuantity() {
 		return taskQuantity;
 	}
 
-
 	public void setTaskQuantity(Integer taskQuantity) {
 		this.taskQuantity = taskQuantity;
 	}
-
 
 	public List<Task> getTaskList() {
 		return taskList;
@@ -71,8 +66,7 @@ public class Race {
 	public Boolean getIsActive() {
 		return isActive;
 	}
-
-
+	
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
@@ -80,7 +74,6 @@ public class Race {
 	public void addTask(Task task) {
 		taskList.add(task);
 	}
-	
 	
 	public void removeTask(Integer taskId) {
 		for (Task tk : taskList) {
@@ -110,5 +103,22 @@ public class Race {
 	}
 
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(raceId);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Race other = (Race) obj;
+		return Objects.equals(raceId, other.raceId);
+	}
 
 }

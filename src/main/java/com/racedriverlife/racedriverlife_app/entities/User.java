@@ -1,5 +1,7 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +34,6 @@ public class User {
 		
 	}
 
-
 	public User(String userName, String password, RaceCentral raceCentral) {
 		super();
 		this.userName = userName;
@@ -40,41 +41,33 @@ public class User {
 		this.raceCentral = raceCentral;
 	}
 
-
 	public Long getUserId() {
 		return userId;
 	}
-
 
 	public String getUserName() {
 		return userName;
 	}
 
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
-
 	public RaceCentral getRaceCentral() {
 		return raceCentral;
 	}
 
-
 	public void setRaceCentral(RaceCentral raceCentral) {
 		this.raceCentral = raceCentral;
 	}
-
 
 	public void resetStorage() {
 		raceCentral.setRacesDisputed(0);
@@ -82,4 +75,21 @@ public class User {
 		raceCentral.endRace();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(userId, other.userId);
+	}
+	
 }
