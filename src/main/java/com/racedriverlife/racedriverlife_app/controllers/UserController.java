@@ -12,6 +12,7 @@ import com.racedriverlife.racedriverlife_app.entities.User;
 import com.racedriverlife.racedriverlife_app.services.UserService;
 
 @Controller
+
 public class UserController {
 	
 	@Autowired
