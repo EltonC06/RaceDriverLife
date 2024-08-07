@@ -12,19 +12,37 @@ import com.racedriverlife.racedriverlife_app.repositories.UserRepository;
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepository; // para poder se comunicar com BD
+	private UserRepository repository; // para poder se comunicar com BD
 	
-	// 3 metodos essenciais
 	public List<User> getAllUsers() {
-		return this.userRepository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public User getUserById(Long id) {
-		return this.userRepository.findById(id).get();
+		return this.repository.findById(id).get();
 	}
 	
-	public User saveUser(User user) {
-		return this.userRepository.save(user);
+	public User save(User user) {
+		return this.repository.save(user);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public User update(Long id, User user) {
+		User entity = repository.getReferenceById(id);
+		entity = updateData(entity, user);
+		return repository.save(entity);	
+	}
+	
+	private User updateData(User entity, User user) {
+		entity.setUserName(user.getUserName());
+		entity.setPassword(user.getPassword());
+		entity.setRaceCentral(user.getRaceCentral());
+		
+		return entity;
+		
 	}
 	
 	

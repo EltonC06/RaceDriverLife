@@ -12,15 +12,16 @@ import com.racedriverlife.racedriverlife_app.repositories.RaceCentralRepository;
 public class RaceCentralService {
 	
 	@Autowired
-	private RaceCentralRepository raceCentralRepository;
+	private RaceCentralRepository repository;
 	
 	public List<RaceCentral> getAllCentral() {
-		return this.raceCentralRepository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public RaceCentral getCentralById(Long id) {
-		return this.raceCentralRepository.findById(id).get();
+		return this.repository.findById(id).get();
 	}
+	
 	
 	
 }

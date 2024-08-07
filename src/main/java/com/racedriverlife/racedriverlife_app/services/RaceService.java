@@ -12,14 +12,16 @@ import com.racedriverlife.racedriverlife_app.repositories.RaceRepository;
 public class RaceService {
 	
 	@Autowired
-	private RaceRepository raceRepository;
+	private RaceRepository repository;
 	
 	public List<Race> getAllRaces() {
-		return this.raceRepository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public Race getRaceById(Long id) {
-		return this.raceRepository.findById(id).get();
+		return this.repository.findById(id).get();
 	}
+	
+	
 
 }

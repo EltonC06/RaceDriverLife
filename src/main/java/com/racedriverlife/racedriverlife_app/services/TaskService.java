@@ -12,22 +12,35 @@ import com.racedriverlife.racedriverlife_app.repositories.TaskRepository;
 public class TaskService {
 	
 	@Autowired
-	private TaskRepository taskRepository;
+	private TaskRepository repository;
 	
 
 	public List<Task> getAllTasks() {
-		return this.taskRepository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public Task getTaskById(Long id) {
-		return this.taskRepository.findById(id).get();
+		return this.repository.findById(id).get();
 	}
 		
-	public Task saveTask(Task task) {
-		return this.taskRepository.save(task);
+	public Task save(Task task) {
+		return this.repository.save(task);
 	}
 	
-	public void deleteTask(Long id) {
-		taskRepository.deleteById(id);
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Task update(Long id, Task task) {
+		Task entity = repository.getReferenceById(id);
+		entity = updateData(entity, task);
+		return repository.save(entity);
+		
+	}
+	
+	private Task updateData(Task entity, Task task) {
+		entity.setTaskName(task.getTaskName());
+		entity.setTaskStatus(task.getTaskStatus());
+		return entity;
 	}
 }

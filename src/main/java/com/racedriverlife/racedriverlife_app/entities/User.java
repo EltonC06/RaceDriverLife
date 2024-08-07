@@ -2,6 +2,8 @@ package com.racedriverlife.racedriverlife_app.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,12 +21,11 @@ public class User {
 	@Id // definindo chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-	
 	@Column(nullable = false)
 	private String userName;
-	
 	private String password;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
 	@JoinColumn(name = "race_central_id", nullable = false)
 	private RaceCentral raceCentral;

@@ -34,11 +34,34 @@ public class Tester implements CommandLineRunner {
 		
 		User user = new User("Elton", "12345", raceCentral);
 		
-		User savedUser = userService.saveUser(user);
+		User savedUser = userService.save(user);
 
-		Task savedTask = taskService.saveTask(new Task("Programar", race));
+		Task savedTask = taskService.save(new Task("Programar", race));
+		Task savedTas = taskService.save(new Task("Organizar gaveta", race));
+		Task savedTas2 = taskService.save(new Task("Comprar mouse", race));
+		// -----------------
+		Race race2 = new Race();
 		
+		RaceCentral raceCentral2 = new RaceCentral(race2);
 		
+		User user2 = new User("Enael", "1345", raceCentral2);
+		
+		User savedUser2 = userService.save(user2);
+
+		Task savedTask2 = taskService.save(new Task("Jogar", race2));
+		Task savedTask3 = taskService.save(new Task("Fazer compras", race2));
+		Task savedTask4 = taskService.save(new Task("Academia", race2));
+		//--------------------
+		Race race3 = new Race();
+		
+		RaceCentral raceCentral3 = new RaceCentral(race3);
+		
+		User user3 = new User("Nothon", "1245", raceCentral3);
+		
+		User savedUser3 = userService.save(user3);
+
+		Task savedTask1 = taskService.save(new Task("Passear", race3));
+		Task savedTask5 = taskService.save(new Task("Fazer compras", race3));
 		
 	}
 

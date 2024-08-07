@@ -3,6 +3,8 @@ package com.racedriverlife.racedriverlife_app.entities;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class RaceCentral {
 	
 	private Integer racesDisputed;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL) // a classe Race não pode existir sem essa
 	@JoinColumn(name = "race_id", nullable = false)
 	private Race race;

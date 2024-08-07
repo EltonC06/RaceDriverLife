@@ -88,7 +88,17 @@ public class Race {
 
 	}
 	
-	public Integer countCompletedTasks() {
+	public void countTotalTasks() {
+		Integer totalTasks = 0;
+		Integer completedTasks = countCompletedTasks();
+		for (Task tk : taskList) {
+			totalTasks += 1;
+		}
+		this.doneTasks = completedTasks;
+		this.taskQuantity = totalTasks-completedTasks;
+	}
+	
+	protected Integer countCompletedTasks() {
 		Integer completedTasks = 0;
 		for (Task tk : taskList) {
 			if (tk.getTaskStatus().equals(TaskStatus.DONE)) {
