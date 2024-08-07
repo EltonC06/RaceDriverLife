@@ -7,12 +7,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "tb_race")
@@ -25,7 +28,7 @@ public class Race {
 	private Integer taskQuantity;
 	private Boolean isActive = false;
 	
-	@OneToMany(mappedBy = "race") // uma corrida pode estar associada a varias tarefas
+	@OneToMany(mappedBy = "race", cascade = CascadeType.ALL) // uma corrida pode estar associada a varias tarefas
 	@JsonIgnore
 	public List<Task> taskList; // program to interface
 	// corrida não recebe id das tarefas (para não criar uma lista)
@@ -73,6 +76,7 @@ public class Race {
 	
 	public void addTask(Task task) {
 		taskList.add(task);
+		this.countTotalTasks();
 	}
 	
 	public void removeTask(Integer taskId) {
@@ -85,7 +89,7 @@ public class Race {
 	
 	public void changeTaskStatus(String taskStatus, Integer taskId) {
 		taskList.get(taskId).setTaskStatus(taskStatus);
-
+		this.countTotalTasks();
 	}
 	
 	public void countTotalTasks() {
@@ -95,13 +99,20 @@ public class Race {
 			totalTasks += 1;
 		}
 		this.doneTasks = completedTasks;
-		this.taskQuantity = totalTasks-completedTasks;
+		this.taskQuantity = totalTasks;
+		
+		if (this.taskQuantity.equals(0)) {
+			this.isActive = false;
+		}
+		else {
+			this.isActive = true;
+		}
 	}
 	
 	protected Integer countCompletedTasks() {
 		Integer completedTasks = 0;
 		for (Task tk : taskList) {
-			if (tk.getTaskStatus().equals(TaskStatus.DONE)) {
+			if (tk.getTaskStatus().equals(TaskStatus.DONE.toString())) {
 				completedTasks += 1;
 			}
 		}

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 
 @Entity // é uma entidade (tabela)
 @Table(name = "tb_task") // nome da tabela
@@ -38,6 +39,7 @@ public class Task {
 		this.taskName = taskName;
 		this.taskStatus = TaskStatus.PENDING.name();
 		this.race = race;
+		race.addTask(this);
 	}
 
 

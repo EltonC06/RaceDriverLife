@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "tb_user")
@@ -61,7 +62,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public RaceCentral getRaceCentral() {
 		return raceCentral;
 	}

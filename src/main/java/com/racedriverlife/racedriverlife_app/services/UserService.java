@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.racedriverlife.racedriverlife_app.entities.User;
 import com.racedriverlife.racedriverlife_app.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
 @Service
 public class UserService {
 	
@@ -17,7 +20,7 @@ public class UserService {
 	public List<User> getAllUsers() {
 		return this.repository.findAll();
 	}
-	
+	@Transactional
 	public User getUserById(Long id) {
 		return this.repository.findById(id).get();
 	}
