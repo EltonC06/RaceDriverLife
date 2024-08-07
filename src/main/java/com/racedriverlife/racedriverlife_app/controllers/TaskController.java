@@ -3,9 +3,11 @@ package com.racedriverlife.racedriverlife_app.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,7 @@ import com.racedriverlife.racedriverlife_app.entities.Task;
 import com.racedriverlife.racedriverlife_app.services.TaskService;
 
 @RestController
-@RequestMapping(value = "/task")
+@RequestMapping(value = "/tasks")
 public class TaskController {
 
 	@Autowired
@@ -27,19 +29,14 @@ public class TaskController {
 	}
 	
 	@GetMapping("/{id}")
-	public Task getTask(@PathVariable(name = "id") Long id) {
+	public Task findById(@PathVariable(name = "id") Long id) {
 		Task task = service.getTaskById(id);
 		return task;
 	}	
 	
 	@PostMapping
 	public Task insert(@RequestBody Task task) {
-		service.save(task);
-		return task;
+		return service.save(task);
 	}
-	
-	
-	
-	
 	
 }

@@ -35,18 +35,13 @@ public class UserService {
 	
 	public User update(Long id, User user) {
 		User entity = repository.getReferenceById(id);
-		entity = updateData(entity, user);
+		updateData(entity, user);
 		return repository.save(entity);	
 	}
 	
-	private User updateData(User entity, User user) {
+	private void updateData(User entity, User user) {
 		entity.setUserName(user.getUserName());
 		entity.setPassword(user.getPassword());
-		entity.setRaceCentral(user.getRaceCentral());
-		
-		return entity;
-		
-	}
-	
-	
+		entity.setRaceCentral(user.getRaceCentral());		
+	}	
 }

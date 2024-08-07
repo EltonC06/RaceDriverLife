@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +14,7 @@ import com.racedriverlife.racedriverlife_app.entities.Race;
 import com.racedriverlife.racedriverlife_app.services.RaceService;
 
 @RestController
-@RequestMapping(value = "/race")
+@RequestMapping(value = "/races")
 public class RaceController {
 	
 	@Autowired
@@ -25,9 +27,14 @@ public class RaceController {
 	}
 	
 	@GetMapping("/{id}")
-	public Race getRace(@PathVariable(name = "id") Long id) {
+	public Race findById(@PathVariable(name = "id") Long id) {
 		Race race = service.getRaceById(id);
 		return race;
+	}
+	
+	@PutMapping("/{id}")
+	public Race update(@PathVariable(name = "id") Long id, @RequestBody Race race) {
+		return service.update(id, race);
 	}
 	
 }

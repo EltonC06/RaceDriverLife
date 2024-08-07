@@ -82,18 +82,13 @@ public class Tester implements CommandLineRunner {
 		taskService.update(2L, taskToUpdate);
 		userService.update(1L, savedUser);
 		raceService.update(1L, race3);
-		
+		/*
 		taskService.delete(1L);
 		taskService.delete(2L);
 		
 		raceService.update(1L, race3);
+		*/
 		
-		
-		// relação entre classes funcionando
-		
-		// toda vez que mexer na classe task tem que salvar a classe race
-		
-		// update e delete funcionando
 	}
 
 }

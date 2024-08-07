@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.racedriverlife.racedriverlife_app.entities.Task;
 import com.racedriverlife.racedriverlife_app.repositories.TaskRepository;
+import com.racedriverlife.racedriverlife_app.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
