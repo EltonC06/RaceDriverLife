@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

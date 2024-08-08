@@ -29,7 +29,7 @@ public class TaskService {
 	public List<Task> getAllTasks() {
 		return this.repository.findAll();
 	}
-	@Transactional
+	
 	public Task getTaskById(Long id) {
 		return this.repository.findById(id).get();
 	}
@@ -39,7 +39,7 @@ public class TaskService {
 		
 		this.repository.save(convertedTask);
 		
-		Race raceUpdated = updateRaceData(taskDTO);
+		Race raceUpdated = updateRaceData(taskDTO.getRaceId());
 		
 		raceService.update(taskDTO.getRaceId(), raceUpdated);
 		
@@ -48,26 +48,24 @@ public class TaskService {
 	
 
 	public void delete(Long id) {
+		Task task = this.getTaskById(id);
+		
+		Long raceId = task.getRace().getRaceId();
+		
 		repository.deleteById(id);
+		
+		updateRaceData(raceId);
 	}
 	
 	public Task update(Long id, TaskDTO taskDTO) { 
 		Task entity = repository.getReferenceById(id);
 		
-		Task task = convertDTOtoEntity(taskDTO);
+		entity = updateData(entity, taskDTO);
 		
-		entity = updateData(entity, task);
-		
-		repository.save(entity);
-		
-		//Race raceUpdated = updateRaceData(taskDTO);
-		
-		//raceService.update(taskDTO.getRaceId(), raceUpdated);
-		
-		return entity;
+		return this.repository.save(entity);
 	}
 	
-	private Task updateData(Task entity, Task task) {
+	private Task updateData(Task entity, TaskDTO task) {
 		entity.setTaskName(task.getTaskName());
 		entity.setTaskStatus(task.getTaskStatus());
 		return entity;
@@ -77,7 +75,7 @@ public class TaskService {
 		Task convertedTask = new Task();
 		
 		convertedTask.setTaskName(taskDTO.getTaskName());
-		convertedTask.setRace(raceRepository.findById(taskDTO.getRaceId()).get()); // usei o id que é passado no DTO para achar a corrida
+		convertedTask.setRace(raceRepository.findById(taskDTO.getRaceId()).get());
 		
 		if (taskDTO.getTaskStatus().equals(null)) {
 			convertedTask.setTaskStatus(TaskStatus.PENDING.toString());
@@ -90,18 +88,17 @@ public class TaskService {
 				convertedTask.setTaskStatus(TaskStatus.PENDING.toString());
 			}
 		}
-		
-		 // reavaliar esse problema com o metodo update
-		
-		
+
 		return convertedTask;
 	}
 	
-	private Race updateRaceData(TaskDTO taskDTO) {
-		Race savedRace = raceRepository.findById(taskDTO.getRaceId()).get();
+	
+	public Race updateRaceData(Long id) {
+		Race savedRace = raceRepository.findById(id).get();
 		
 		savedRace.countTotalTasks();
 		
-		return savedRace;
+		System.out.println("Corrida atualizada");
+		return raceService.update(id, savedRace);
 	}
 }

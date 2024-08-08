@@ -47,8 +47,12 @@ public class TaskController {
 	
 	@PutMapping("/{id}")
 	public Task update(@PathVariable(name = "id") Long id, @RequestBody TaskDTO taskDTO) {
-		return service.update(id, taskDTO);
-
+		
+		Task taskUpdated = service.update(id, taskDTO);
+		
+		service.updateRaceData(taskDTO.getRaceId());
+		
+		return taskUpdated;
 	}
 	
 	
@@ -60,4 +64,6 @@ public class TaskController {
 
 // atualizar OK
 
-// assim que atualizar a tarefa atualizar a race (DONE e PENDING)
+// assim que atualizar a tarefa atualizar a race (DONE e PENDING) OK
+
+// estou conseguindo adicionar remover e atualizar tarefas e tudo isso está em pura sincronia com atributos da classe Race 08/08/2024
