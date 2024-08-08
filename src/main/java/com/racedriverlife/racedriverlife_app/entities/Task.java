@@ -18,7 +18,7 @@ import jakarta.transaction.Transactional;
 public class Task {
 	
 	@Id // é uma chave primaria
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // gerar id automatico
+	@GeneratedValue(strategy = GenerationType.AUTO) // gerar id automatico
 	private Long taskId;
 	private String taskName;
 	

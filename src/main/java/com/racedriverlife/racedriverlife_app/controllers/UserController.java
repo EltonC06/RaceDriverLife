@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.racedriverlife.racedriverlife_app.DTOs.UserDTO;
 import com.racedriverlife.racedriverlife_app.entities.User;
 import com.racedriverlife.racedriverlife_app.services.UserService;
 
@@ -23,8 +24,8 @@ public class UserController {
 	UserService service;
 	
 	@GetMapping
-	public List<User> findAll() {
-		List<User> result = service.getAllUsers();
+	public List<UserDTO> findAll() {
+		List<UserDTO> result = service.getAllUsers();
 		return result;
 	}
 	
@@ -35,14 +36,14 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public User insert(@RequestBody User user) {
-		service.save(user); // transferindo para outra classe
-		return user;
+	public User insert(@RequestBody UserDTO userDTO) {
+		User savedUser = service.save(userDTO); // transferindo para outra classe
+		return savedUser;
 	}
 	
 	@PutMapping("/{id}")
-	public User update(@PathVariable(name = "id") Long id, @RequestBody User user) {
-		return service.update(id, user);
+	public User update(@PathVariable(name = "id") Long id, @RequestBody UserDTO userDTO) {
+		return service.update(id, userDTO);
 	}
 	
 	@DeleteMapping("/{id}")

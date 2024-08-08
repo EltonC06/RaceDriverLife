@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.racedriverlife.racedriverlife_app.DTOs.TaskDTO;
 import com.racedriverlife.racedriverlife_app.entities.Task;
 import com.racedriverlife.racedriverlife_app.services.TaskService;
 
@@ -35,8 +36,28 @@ public class TaskController {
 	}	
 	
 	@PostMapping
-	public Task insert(@RequestBody Task task) {
-		return service.save(task);
+	public Task insert(@RequestBody TaskDTO taskDTO) {
+		return service.save(taskDTO);
 	}
 	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable(name = "id") Long id) {
+		service.delete(id);
+	}
+	
+	@PutMapping("/{id}")
+	public Task update(@PathVariable(name = "id") Long id, @RequestBody TaskDTO taskDTO) {
+		return service.update(id, taskDTO);
+
+	}
+	
+	
 }
+
+// deletar OK
+
+// fazer o race atualizar o numero de tarefas OK
+
+// atualizar OK
+
+// assim que atualizar a tarefa atualizar a race (DONE e PENDING)

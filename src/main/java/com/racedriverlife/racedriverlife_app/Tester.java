@@ -62,6 +62,7 @@ public class Tester implements CommandLineRunner {
 		Task savedTask4 = taskService.save(new Task("Academia", race2));
 		
 		*/
+		/*
 		Race race3 = new Race();
 		
 		RaceCentral raceCentral3 = new RaceCentral(race3);

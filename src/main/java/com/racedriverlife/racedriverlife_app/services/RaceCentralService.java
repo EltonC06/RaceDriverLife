@@ -10,7 +10,6 @@ import com.racedriverlife.racedriverlife_app.repositories.RaceCentralRepository;
 
 import jakarta.transaction.Transactional;
 
-@Transactional
 @Service
 public class RaceCentralService {
 	
