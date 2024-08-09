@@ -1,14 +1,17 @@
 package com.racedriverlife.racedriverlife_app.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.racedriverlife.racedriverlife_app.entities.RaceCentral;
 import com.racedriverlife.racedriverlife_app.repositories.RaceCentralRepository;
+import com.racedriverlife.racedriverlife_app.services.exceptions.DatabaseException;
+import com.racedriverlife.racedriverlife_app.services.exceptions.ResourceNotFoundException;
 
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RaceCentralService {
@@ -21,21 +24,33 @@ public class RaceCentralService {
 	}
 	
 	public RaceCentral getCentralById(Long id) {
-		return this.repository.findById(id).get();
+		Optional<RaceCentral> obj = repository.findById(id);
+		return obj.orElseThrow( () -> new ResourceNotFoundException(id)  );
 	}
 	
 	public RaceCentral save(RaceCentral raceCentral) {
 		return this.repository.save(raceCentral);
 	}
 	
-	public void delete(Long id) {
-		this.repository.deleteById(id);
-	}
+
 	
 	public RaceCentral update(Long id, RaceCentral raceCentral) {
-		RaceCentral entity = repository.getReferenceById(id);
-		entity = updateData(entity, raceCentral);
-		return repository.save(entity);
+		try {
+			RaceCentral entity = repository.getReferenceById(id);
+			entity = updateData(entity, raceCentral);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	public void delete(Long id) {
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
+		}
+		else {
+			throw new DatabaseException("Resource not found. Id " + id);
+		}
 	}
 
 	private RaceCentral updateData(RaceCentral entity, RaceCentral raceCentral) {
