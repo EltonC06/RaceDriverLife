@@ -23,9 +23,14 @@ public class User {
 	@Id // definindo chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
+	
+	
 	@Column(nullable = false)
 	private String userName;
+	
+	
 	private String password;
+	
 	
 	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
 	@JoinColumn(name = "race_central_id", nullable = false)

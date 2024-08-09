@@ -16,6 +16,8 @@ import com.racedriverlife.racedriverlife_app.DTOs.TaskDTO;
 import com.racedriverlife.racedriverlife_app.entities.Task;
 import com.racedriverlife.racedriverlife_app.services.TaskService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/tasks")
 public class TaskController {
@@ -36,7 +38,7 @@ public class TaskController {
 	}	
 	
 	@PostMapping
-	public Task insert(@RequestBody TaskDTO taskDTO) {
+	public Task insert(@Valid @RequestBody TaskDTO taskDTO) {
 		return service.save(taskDTO);
 	}
 	
@@ -46,7 +48,7 @@ public class TaskController {
 	}
 	
 	@PutMapping("/{id}")
-	public Task update(@PathVariable(name = "id") Long id, @RequestBody TaskDTO taskDTO) {
+	public Task update(@Valid @PathVariable(name = "id") Long id, @RequestBody TaskDTO taskDTO) {
 		
 		Task taskUpdated = service.update(id, taskDTO);
 		

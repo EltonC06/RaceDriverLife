@@ -1,10 +1,14 @@
 package com.racedriverlife.racedriverlife_app.DTOs;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class TaskDTO {
 	
-	
+	@NotBlank(message = "Taskname can't be empty")
 	private String taskName;
+	
 	private Long raceId;
+	
 	private String taskStatus;
 	
 	public TaskDTO() {
