@@ -48,7 +48,7 @@ public class TaskController {
 	}
 	
 	@PutMapping("/{id}")
-	public Task update(@Valid @PathVariable(name = "id") Long id, @RequestBody TaskDTO taskDTO) {
+	public Task update(@Valid @PathVariable(name = "id") Long id, @Valid @RequestBody TaskDTO taskDTO) {
 		
 		Task taskUpdated = service.update(id, taskDTO);
 		

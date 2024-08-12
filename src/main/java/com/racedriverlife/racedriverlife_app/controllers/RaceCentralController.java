@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.racedriverlife.racedriverlife_app.DTOs.RaceCentralDTO;
 import com.racedriverlife.racedriverlife_app.entities.RaceCentral;
 import com.racedriverlife.racedriverlife_app.services.RaceCentralService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/racecentrals")
@@ -33,8 +36,8 @@ public class RaceCentralController {
 	}
 	
 	@PutMapping("/{id}")
-	public RaceCentral update(@PathVariable(name = "id") Long id, @RequestBody RaceCentral raceCentral) {
-		return service.update(id, raceCentral);
+	public RaceCentral update(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceCentralDTO raceCentralDTO) {
+		return service.update(id, raceCentralDTO);
 	}
 	
 	

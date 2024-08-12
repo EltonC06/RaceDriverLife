@@ -48,8 +48,7 @@ public class TaskService {
 			
 			Race raceUpdated = updateRaceData(taskDTO.getRaceId());
 			
-			raceService.update(taskDTO.getRaceId(), raceUpdated);
-			
+			//raceService.update(taskDTO.getRaceId(), raceUpdated);
 			return convertedTask;
 		}
 		catch (NoSuchElementException e) {
@@ -124,7 +123,7 @@ public class TaskService {
 			savedRace.countTotalTasks();
 			
 			System.out.println("Corrida atualizada");
-			return raceService.update(id, savedRace);
+			return raceService.update(id, raceService.convertEntitytoDTO(savedRace));
 		} catch (NoSuchElementException e) {
 			throw new ResourceNotFoundException(id);
 		}

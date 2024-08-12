@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.racedriverlife.racedriverlife_app.DTOs.RaceCentralDTO;
 import com.racedriverlife.racedriverlife_app.entities.RaceCentral;
 import com.racedriverlife.racedriverlife_app.repositories.RaceCentralRepository;
 import com.racedriverlife.racedriverlife_app.services.exceptions.DatabaseException;
@@ -34,16 +35,28 @@ public class RaceCentralService {
 	
 
 	
-	public RaceCentral update(Long id, RaceCentral raceCentral) {
+	public RaceCentral update(Long id, RaceCentralDTO raceCentralDTO) {
 		try {
 			RaceCentral entity = repository.getReferenceById(id);
-			entity = updateData(entity, raceCentral);
+			
+			RaceCentral raceCentralConverted = convertDTOtoEntity(raceCentralDTO);
+			
+			entity = updateData(entity, raceCentralConverted);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
+	private RaceCentral convertDTOtoEntity(RaceCentralDTO raceCentralDTO) {
+		RaceCentral raceCentral = new RaceCentral();
+		
+		raceCentral.setRacesDisputed(raceCentralDTO.getRacesDisputed());
+		raceCentral.setRacesWon(raceCentralDTO.getRacesWon());
+		
+		return raceCentral;
+	}
+
 	public void delete(Long id) {
 		if (repository.existsById(id)) {
 			repository.deleteById(id);

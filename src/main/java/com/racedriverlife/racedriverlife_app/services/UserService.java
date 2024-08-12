@@ -85,7 +85,7 @@ public class UserService {
 				List<UserDTO> allUsers = this.getAllUsers();
 				
 				for (UserDTO user : allUsers) {
-					if (user.getUserName().equals(userDTO.getUserName())) {
+					if (user.getUserName().equals(userDTO.getUserName())) { // verificando para não ter nome duplicata
 						throw new UserAlreadyExistsException();
 					}
 				}
