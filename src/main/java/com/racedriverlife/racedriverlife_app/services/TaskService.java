@@ -60,8 +60,6 @@ public class TaskService {
 
 	
 	public Task update(Long id, TaskDTO taskDTO) { 
-		
-		
 		try {
 			Task entity = repository.getReferenceById(id);
 			entity = updateData(entity, taskDTO);
@@ -71,6 +69,8 @@ public class TaskService {
 		} catch (NoSuchElementException e) {
 			throw new ResourceNotFoundException(id);
 		}
+		
+		
 	}
 	
 	public void delete(Long id) {

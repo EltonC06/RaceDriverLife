@@ -25,16 +25,8 @@ public class UserService {
 	@Autowired
 	private UserRepository repository; // para poder se comunicar com BD
 	
-	public List<UserDTO> getAllUsers() {
-		List<UserDTO> userDTO = new ArrayList<UserDTO>();
-		List<User> user = this.repository.findAll();
-		
-		for (User x : user) {
-			userDTO.add(convertToDTO(x));
-		}
-		
-		return userDTO;
-		
+	public List<User> getAllUsers() {
+		return this.repository.findAll();		
 	}
 
 	public User getUserById(Long id) {
@@ -43,9 +35,9 @@ public class UserService {
 	}
 	
 	public User save(UserDTO userDTO) {
-		List<UserDTO> allUsers = this.getAllUsers();
+		List<User> allUsers = this.getAllUsers();
 		
-		for (UserDTO user : allUsers) {
+		for (User user : allUsers) {
 			if (user.getUserName().equals(userDTO.getUserName())) {
 				throw new UserAlreadyExistsException();
 			}
@@ -82,9 +74,9 @@ public class UserService {
 			User entity = repository.getReferenceById(id); // pega todos os atributos do user especifico
 			
 			if (!userDTO.getUserName().equals(entity.getUserName())) {
-				List<UserDTO> allUsers = this.getAllUsers();
+				List<User> allUsers = this.getAllUsers();
 				
-				for (UserDTO user : allUsers) {
+				for (User user : allUsers) {
 					if (user.getUserName().equals(userDTO.getUserName())) { // verificando para não ter nome duplicata
 						throw new UserAlreadyExistsException();
 					}

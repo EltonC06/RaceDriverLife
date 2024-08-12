@@ -106,8 +106,13 @@ public class RaceService {
 		return entity;
 	}
 	
-	
-	
-	
-
+	protected boolean isFinished(Long id) {
+		Race race = repository.findById(id).get();
+		
+		if (race.getDoneTasks().equals(race.getTaskQuantity())) {		
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -31,7 +31,7 @@ public class User {
 	
 	private String password;
 	
-	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
 	@JoinColumn(name = "race_central_id", nullable = false)
 	private RaceCentral raceCentral;
