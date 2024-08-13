@@ -1,6 +1,5 @@
 package com.racedriverlife.racedriverlife_app.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,11 +105,6 @@ public class RaceService {
 		return entity;
 	}
 	
-	public void resetTasks(Long id) {
-		Race race = this.getRaceById(id);
-		race.resetTaskList();
-		this.save(race);
 
-	}
 		
 }

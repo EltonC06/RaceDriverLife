@@ -104,17 +104,29 @@ public class Race {
 	public void countTotalTasks() {
 		Integer totalTasks = 0;
 		Integer completedTasks = countCompletedTasks();
+		Integer missedTasks = countMissedTasks();
 		for (Task tk : taskList) {
 			totalTasks += 1;
 		}
 		this.doneTasks = completedTasks;
 		this.taskQuantity = totalTasks;
+		this.missedTasks = missedTasks;
 
 		if (this.taskQuantity.equals(0)) {
 			this.isActive = false;
 		} else {
 			this.isActive = true;
 		}
+	}
+
+	private Integer countMissedTasks() {
+		Integer missedTasks = 0;
+		for (Task tk : taskList) {
+			if (tk.getTaskStatus().equals(TaskStatus.MISSED.toString())) {
+				missedTasks += 1;
+			}
+		}
+		return missedTasks;
 	}
 
 	protected Integer countCompletedTasks() {

@@ -1,10 +1,13 @@
 package com.racedriverlife.racedriverlife_app.services;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.racedriverlife.racedriverlife_app.DTOs.TaskDTO;
@@ -35,6 +38,19 @@ public class TaskService {
 		return this.repository.findAll();
 	}
 	
+	public List<Task> getRaceBasedTask(Long id) { // pegando todas as tarefas especifica de um usuario
+		List<Task> allTasks = this.repository.findAll(); // solução temporaria
+		
+		List<Task> result = new ArrayList<>();
+		
+		for (Task t : allTasks) {
+			if (convertEntityToDTO(t).getRaceId().equals(id)) {
+				result.add(t);
+			}
+		}
+		return result;
+	}
+	
 	public Task getTaskById(Long id) {
 		Optional<Task> obj = repository.findById(id);
 		return obj.orElseThrow( () -> new ResourceNotFoundException(id) ); 
@@ -56,9 +72,6 @@ public class TaskService {
 		}
 	}
 	
-
-
-	
 	public Task update(Long id, TaskDTO taskDTO) { 
 		try {
 			Task entity = repository.getReferenceById(id);
@@ -69,8 +82,6 @@ public class TaskService {
 		} catch (NoSuchElementException e) {
 			throw new ResourceNotFoundException(id);
 		}
-		
-		
 	}
 	
 	public void delete(Long id) {
@@ -86,6 +97,31 @@ public class TaskService {
 		else {
 			throw new DatabaseException("Resource not found. Id " + id);
 		}
+	}
+	
+	public void deleteRaceBasedTasks(Long id) { // deletar tarefa baseada na corrida
+		if (raceRepository.existsById(id)) {
+			
+			List<Task> allTasks = this.repository.findAll();
+			
+			List<Task> result = new ArrayList<>();
+			
+			for (Task t : allTasks) {
+				if (convertEntityToDTO(t).getRaceId().equals(id)) {
+					result.add(t); // lista so das tarefas do id do usuario
+				}
+			}
+			for (Task t : result) {
+				repository.delete(t); // deletando todas as tarefas da lista
+			}
+			
+			updateRaceData(id);
+		}
+		else {
+			throw new DatabaseException("Resource not found. Id " + id);
+		}
+		
+		
 	}
 	
 	private Task updateData(Task entity, TaskDTO task) {
@@ -108,21 +144,34 @@ public class TaskService {
 				convertedTask.setTaskStatus(TaskStatus.DONE.toString());
 			}
 			else {
-				convertedTask.setTaskStatus(TaskStatus.PENDING.toString());
+				if (taskDTO.getTaskStatus().equals(TaskStatus.MISSED.toString())) {
+					convertedTask.setTaskStatus(TaskStatus.MISSED.toString());
+				} else {
+					convertedTask.setTaskStatus(TaskStatus.PENDING.toString());
+				}
 			}
 		}
 
 		return convertedTask;
 	}
 	
+	private TaskDTO convertEntityToDTO(Task task) {
+		TaskDTO taskDTO = new TaskDTO();
+		
+		taskDTO.setTaskName(task.getTaskName());
+		taskDTO.setTaskStatus(task.getTaskStatus());
+		taskDTO.setRaceId(task.getRace().getRaceId());
+		
+		return taskDTO;
+	}
 	
-	public Race updateRaceData(Long id) {
+	
+	public Race updateRaceData(Long id) { // faz a corrida recontar as tarefas e atualizar lá
 		try {
 			Race savedRace = raceRepository.findById(id).get();
 			
 			savedRace.countTotalTasks();
 			
-			System.out.println("Corrida atualizada");
 			return raceService.update(id, raceService.convertEntitytoDTO(savedRace));
 		} catch (NoSuchElementException e) {
 			throw new ResourceNotFoundException(id);

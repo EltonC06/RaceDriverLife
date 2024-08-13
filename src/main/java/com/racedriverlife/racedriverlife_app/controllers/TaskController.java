@@ -35,7 +35,14 @@ public class TaskController {
 	public Task findById(@PathVariable(name = "id") Long id) {
 		Task task = service.getTaskById(id);
 		return task;
-	}	
+	}
+	
+	@GetMapping("/racebased/{id}")
+	public List<Task> findSpecificByID(@PathVariable(name = "id") Long id) { // tarefa especifica de um id do usuario
+		List<Task> result = service.getRaceBasedTask(id);
+		return result;
+	}
+	
 	
 	@PostMapping
 	public Task insert(@Valid @RequestBody TaskDTO taskDTO) {
@@ -45,6 +52,11 @@ public class TaskController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable(name = "id") Long id) {
 		service.delete(id);
+	}
+	
+	@DeleteMapping("/racebased/{id}")
+	public void deleteRaceBasedTasks(@PathVariable(name = "id") Long id) {
+		service.deleteRaceBasedTasks(id);
 	}
 	
 	@PutMapping("/{id}")

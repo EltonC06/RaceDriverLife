@@ -24,6 +24,9 @@ public class RaceCentralService {
 	@Autowired
 	private RaceService raceService;
 	
+	@Autowired
+	private TaskService taskService;
+	
 	public List<RaceCentral> getAllCentral() {
 		return this.repository.findAll();
 	}
@@ -82,6 +85,11 @@ public class RaceCentralService {
 			throw new DatabaseException("Resource not found. Id " + id);
 		}
 	}
+	
+	private void resetTasksAndRace(Long id) {
+		taskService.deleteRaceBasedTasks(id);
+		
+	}
 
 	private RaceCentral updateData(RaceCentral entity, RaceCentral raceCentral) {
 		entity.setRacesDisputed(raceCentral.getRacesDisputed());
@@ -95,13 +103,14 @@ public class RaceCentralService {
 		Race race = raceService.getRaceById(id);
 		if (race.isFinished()) {
 
-			
 			raceCentral.setRacesDisputed(raceCentral.getRacesDisputed()+1);
 			
 			if (race.getDoneTasks().equals(race.getTaskQuantity())) { // se tarefas feitas for igual a todas as tarefas então ele ganhou a corrida
 				raceCentral.setRacesWon(raceCentral.getRacesWon()+1);
 			}
-			//race.resetTaskList();
+			
+			resetTasksAndRace(id); // vai resetar somente se estiver concluída
+									
 			this.save(raceCentral);
 		}
 		else {
