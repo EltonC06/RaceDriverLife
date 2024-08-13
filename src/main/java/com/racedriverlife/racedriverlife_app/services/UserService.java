@@ -54,6 +54,7 @@ public class UserService {
 		raceCentral.setRacesWon(0);
 		
 		Race race = new Race();
+		race.setMissedTasks(0);
 		race.setDoneTasks(0);
 		race.setIsActive(false);
 		race.setTaskQuantity(0);

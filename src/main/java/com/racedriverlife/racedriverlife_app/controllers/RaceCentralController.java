@@ -36,10 +36,15 @@ public class RaceCentralController {
 	}
 	
 	@PutMapping("/{id}")
-	public RaceCentral update(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceCentralDTO raceCentralDTO) {
-		return service.update(id, raceCentralDTO);
+	public RaceCentral update(@PathVariable(name = "id") Long id) { // aqui pode atualilzar de duas maneiras.
+		return service.autoUpdate(id);
 	}
 	
+	@PutMapping("/manual/{id}") // manual update
+	public RaceCentral manualUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceCentralDTO raceCentralDTO) {
+		return service.manualUpdate(id, raceCentralDTO);
+		
+	}
 	
 	
 }

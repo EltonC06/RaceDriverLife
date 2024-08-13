@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.racedriverlife.racedriverlife_app.DTOs.RaceCentralDTO;
+import com.racedriverlife.racedriverlife_app.entities.Race;
 import com.racedriverlife.racedriverlife_app.entities.RaceCentral;
 import com.racedriverlife.racedriverlife_app.repositories.RaceCentralRepository;
 import com.racedriverlife.racedriverlife_app.services.exceptions.DatabaseException;
@@ -19,6 +20,9 @@ public class RaceCentralService {
 	
 	@Autowired
 	private RaceCentralRepository repository;
+	
+	@Autowired
+	private RaceService raceService;
 	
 	public List<RaceCentral> getAllCentral() {
 		return this.repository.findAll();
@@ -35,7 +39,7 @@ public class RaceCentralService {
 	
 
 	
-	public RaceCentral update(Long id, RaceCentralDTO raceCentralDTO) {
+	public RaceCentral manualUpdate(Long id, RaceCentralDTO raceCentralDTO) {
 		try {
 			RaceCentral entity = repository.getReferenceById(id);
 			
@@ -44,6 +48,19 @@ public class RaceCentralService {
 			entity = updateData(entity, raceCentralConverted);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	public RaceCentral autoUpdate(Long id) {
+		try {
+			RaceCentral entity = repository.getReferenceById(id);
+			
+			checkRaceStatus(entity.getCentralId());
+			
+			return repository.save(entity);
+		}
+		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
@@ -69,9 +86,31 @@ public class RaceCentralService {
 	private RaceCentral updateData(RaceCentral entity, RaceCentral raceCentral) {
 		entity.setRacesDisputed(raceCentral.getRacesDisputed());
 		entity.setRacesWon(raceCentral.getRacesWon());
+		
 		return entity;
 	}
 	
+	private void checkRaceStatus(Long id) {
+		RaceCentral raceCentral = getCentralById(id);
+		Race race = raceService.getRaceById(id);
+		if (race.isFinished()) {
+
+			
+			raceCentral.setRacesDisputed(raceCentral.getRacesDisputed()+1);
+			
+			if (race.getDoneTasks().equals(race.getTaskQuantity())) { // se tarefas feitas for igual a todas as tarefas então ele ganhou a corrida
+				raceCentral.setRacesWon(raceCentral.getRacesWon()+1);
+			}
+			//race.resetTaskList();
+			this.save(raceCentral);
+		}
+		else {
+			this.save(raceCentral);
+		}
+		
+		
+		
+	}
 	
 	
 }

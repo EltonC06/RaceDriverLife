@@ -4,6 +4,6 @@ public enum TaskStatus {
 	
 	PENDING,
 	DONE,
-	NOT_DONE;
+	MISSED;
 
 }
