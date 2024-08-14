@@ -5,19 +5,19 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class RaceCentralDTO {
-	
+
 	@Min(0)
 	@Max(999)
 	@NotNull
 	private Integer racesWon;
-	
+
 	@Min(0)
 	@Max(999)
 	@NotNull
 	private Integer racesDisputed;
-	
+
 	public RaceCentralDTO() {
-		
+
 	}
 
 	public RaceCentralDTO(Integer racesWon, Integer racesDisputed) {

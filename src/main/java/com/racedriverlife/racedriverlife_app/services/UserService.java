@@ -21,7 +21,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class UserService {
 
 	@Autowired
-	private UserRepository repository; // para poder se comunicar com BD
+	private UserRepository repository;
 
 	public List<User> getAllUsers() {
 		return this.repository.findAll();
@@ -63,13 +63,13 @@ public class UserService {
 
 	public User update(Long id, UserDTO userDTO) {
 		try {
-			User entity = repository.getReferenceById(id); // pega todos os atributos do user especifico
+			User entity = repository.getReferenceById(id);
 
 			if (!userDTO.getUserName().equals(entity.getUserName())) {
 
 				List<User> allUsers = this.getAllUsers();
 				for (User user : allUsers) {
-					if (user.getUserName().equals(userDTO.getUserName())) { // verificando para não ter nome duplicata
+					if (user.getUserName().equals(userDTO.getUserName())) {
 						throw new UserAlreadyExistsException();
 					}
 				}
@@ -89,15 +89,8 @@ public class UserService {
 		}
 	}
 
-	private void updateData(User entity, UserDTO userDTO) { // atualizando só o atualizável
+	private void updateData(User entity, UserDTO userDTO) {
 		entity.setUserName(userDTO.getUserName());
 		entity.setPassword(userDTO.getPassword());
-	}
-
-	private UserDTO convertToDTO(User user) {
-		UserDTO convertedUser = new UserDTO();
-		convertedUser.setUserName(user.getUserName());
-		convertedUser.setPassword(user.getPassword());
-		return convertedUser;
 	}
 }

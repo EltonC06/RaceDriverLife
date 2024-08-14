@@ -23,43 +23,43 @@ import jakarta.validation.Valid;
 public class TaskController {
 
 	@Autowired
-	TaskService service;
-	
+	private TaskService service;
+
 	@GetMapping
 	public List<Task> findAll() {
 		List<Task> result = service.getAllTasks();
 		return result;
 	}
-	
+
 	@GetMapping("/{id}")
 	public Task findById(@PathVariable(name = "id") Long id) {
 		Task task = service.getTaskById(id);
 		return task;
 	}
-	
+
 	@GetMapping("/racebased/{id}")
-	public List<Task> findSpecificByID(@PathVariable(name = "id") Long id) { // tarefa especifica de um id do usuario
+	public List<Task> findRaceBasedTasks(@PathVariable(name = "id") Long id) { // tarefa especifica de um id do usuario
 		List<Task> result = service.getRaceBasedTask(id);
 		return result;
 	}
-	
+
 	@PostMapping
 	public Task insert(@Valid @RequestBody TaskDTO taskDTO) {
 		return service.save(taskDTO);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable(name = "id") Long id) {
 		service.delete(id);
 	}
-	
+
 	@DeleteMapping("/racebased/{id}")
 	public void deleteRaceBasedTasks(@PathVariable(name = "id") Long id) {
 		service.deleteRaceBasedTasks(id);
 	}
-	
+
 	@PutMapping("/{id}")
-	public Task update(@Valid @PathVariable(name = "id") Long id, @Valid @RequestBody TaskDTO taskDTO) {		
+	public Task update(@Valid @PathVariable(name = "id") Long id, @Valid @RequestBody TaskDTO taskDTO) {
 		Task taskUpdated = service.update(id, taskDTO);
 		return taskUpdated;
 	}

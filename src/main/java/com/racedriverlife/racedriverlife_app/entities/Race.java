@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,7 +28,7 @@ public class Race {
 
 	@OneToMany(mappedBy = "race", cascade = CascadeType.ALL) // uma corrida pode estar associada a varias tarefas
 	@JsonIgnore
-	public List<Task> taskList; 
+	public List<Task> taskList;
 
 	public Race() {
 		super();
@@ -82,7 +81,6 @@ public class Race {
 
 	public void addTask(Task task) {
 		taskList.add(task);
-		this.countTotalTasks();
 	}
 
 	public void removeTask(Long taskId) {
@@ -92,7 +90,7 @@ public class Race {
 			}
 		}
 	}
-	
+
 	public boolean isFinished() {
 		Integer totalDoneAndMissedTasks = this.getDoneTasks() + this.getMissedTasks();
 
@@ -102,45 +100,9 @@ public class Race {
 			return false;
 		}
 	}
-	
+
 	public void resetTaskList() {
 		taskList.clear();
-	}
-
-	public void countTotalTasks() {
-		Integer totalTasks = taskList.size();
-		Integer completedTasks = countCompletedTasks();
-		Integer missedTasks = countMissedTasks();
-
-		this.doneTasks = completedTasks;
-		this.taskQuantity = totalTasks;
-		this.missedTasks = missedTasks;
-
-		if (this.taskQuantity.equals(0)) {
-			this.isActive = false;
-		} else {
-			this.isActive = true;
-		}
-	}
-	
-	protected Integer countCompletedTasks() {
-		Integer completedTasks = 0;
-		for (Task tk : taskList) {
-			if (tk.getTaskStatus().equals(TaskStatus.DONE.toString())) {
-				completedTasks += 1;
-			}
-		}
-		return completedTasks;
-	}
-	
-	private Integer countMissedTasks() {
-		Integer missedTasks = 0;
-		for (Task tk : taskList) {
-			if (tk.getTaskStatus().equals(TaskStatus.MISSED.toString())) {
-				missedTasks += 1;
-			}
-		}
-		return missedTasks;
 	}
 
 	@Override

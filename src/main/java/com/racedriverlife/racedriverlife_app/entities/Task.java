@@ -15,21 +15,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_task")
 public class Task {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // gerar id automatico
 	private Long taskId;
 	private String taskName;
 	private String taskStatus;
-	
+
 	@ManyToOne // muitas tarefas podem estar associada a uma unica corrida
 	@JoinColumn(name = "race_id", referencedColumnName = "raceId")
 	private Race race;
-	
+
 	public Task() {
-		
+
 	}
-	
+
 	public Task(String taskName, Race race) {
 		super();
 		this.taskName = taskName;
@@ -37,7 +37,7 @@ public class Task {
 		this.race = race;
 		race.addTask(this);
 	}
-	
+
 	public Long getTaskId() {
 		return taskId;
 	}
@@ -65,7 +65,7 @@ public class Task {
 	public void setRace(Race race) {
 		this.race = race;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(taskId);

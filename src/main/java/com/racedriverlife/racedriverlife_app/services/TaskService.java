@@ -102,7 +102,7 @@ public class TaskService {
 		}
 	}
 
-	public void deleteRaceBasedTasks(Long id) { // deletar tarefa baseada na corrida
+	public void deleteRaceBasedTasks(Long id) {
 		if (raceRepository.existsById(id)) {
 
 			List<Task> allTasks = this.repository.findAll();
@@ -162,10 +162,9 @@ public class TaskService {
 		return taskDTO;
 	}
 
-	private Race updateRaceData(Long id) { // faz a corrida recontar as tarefas e atualizar lá
+	private Race updateRaceData(Long id) {
 		try {
 			Race savedRace = raceRepository.findById(id).get();
-			savedRace.countTotalTasks();
 			return raceService.update(id, raceService.convertEntitytoDTO(savedRace));
 		} catch (NoSuchElementException e) {
 			throw new ResourceNotFoundException(id);

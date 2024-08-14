@@ -5,22 +5,22 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class RaceDTO {
-	
+
 	@NotNull
 	@Min(0)
 	@Max(54)
 	private Integer doneTasks;
-	
+
 	@NotNull
 	@Min(0)
 	@Max(54)
 	private Integer taskQuantity;
-	
+
 	@NotNull
 	private boolean isActive;
-	
+
 	public RaceDTO() {
-		
+
 	}
 
 	public RaceDTO(Integer doneTasks, Integer taskQuantity, boolean isActive) {

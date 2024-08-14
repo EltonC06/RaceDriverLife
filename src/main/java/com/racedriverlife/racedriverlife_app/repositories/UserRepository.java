@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.racedriverlife.racedriverlife_app.entities.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> { // passa a classe e o tipo da chave primaira
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

@@ -19,22 +19,22 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping(value = "/races")
 public class RaceController {
-	
+
 	@Autowired
-	RaceService service;
-	
+	private RaceService service;
+
 	@GetMapping
 	public List<Race> findAll() {
 		List<Race> result = service.getAllRaces();
 		return result;
 	}
-	
+
 	@GetMapping("/{id}")
 	public Race findById(@PathVariable(name = "id") Long id) {
 		Race race = service.getRaceById(id);
 		return race;
 	}
-	
+
 	@PutMapping("/{id}")
 	public Race update(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceDTO raceDTO) {
 		return service.update(id, raceDTO);

@@ -65,6 +65,14 @@ public class RaceCentralService {
 		}
 	}
 
+	public void delete(Long id) {
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
+		} else {
+			throw new DatabaseException("Resource not found. Id " + id);
+		}
+	}
+
 	private RaceCentral convertDTOtoEntity(RaceCentralDTO raceCentralDTO) {
 		RaceCentral raceCentral = new RaceCentral();
 
@@ -72,14 +80,6 @@ public class RaceCentralService {
 		raceCentral.setRacesWon(raceCentralDTO.getRacesWon());
 
 		return raceCentral;
-	}
-
-	public void delete(Long id) {
-		if (repository.existsById(id)) {
-			repository.deleteById(id);
-		} else {
-			throw new DatabaseException("Resource not found. Id " + id);
-		}
 	}
 
 	private void resetTasksAndRace(Long id) {

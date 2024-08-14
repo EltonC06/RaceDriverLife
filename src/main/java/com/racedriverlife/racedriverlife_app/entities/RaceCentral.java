@@ -14,23 +14,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_race_central")
 public class RaceCentral {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long centralId;
-	
 	private Integer racesWon;
-	
 	private Integer racesDisputed;
-	
+
 	@OneToOne(cascade = CascadeType.ALL) // a classe Race não pode existir sem essa
 	@JoinColumn(name = "race_id", nullable = false)
 	private Race race;
-	
+
 	public RaceCentral() {
-		
+
 	}
-	
+
 	public RaceCentral(Race race) {
 		super();
 		this.racesWon = 0;
@@ -81,5 +79,5 @@ public class RaceCentral {
 			return false;
 		RaceCentral other = (RaceCentral) obj;
 		return Objects.equals(centralId, other.centralId);
-	}	
+	}
 }

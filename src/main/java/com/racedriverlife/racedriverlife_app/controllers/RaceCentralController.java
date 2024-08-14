@@ -19,29 +19,30 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping(value = "/racecentrals")
 public class RaceCentralController {
-	
+
 	@Autowired
-	RaceCentralService service;
-	
+	private RaceCentralService service;
+
 	@GetMapping
 	public List<RaceCentral> findAll() {
 		List<RaceCentral> result = service.getAllCentral();
 		return result;
 	}
-	
+
 	@GetMapping("/{id}")
 	public RaceCentral findById(@PathVariable(name = "id") Long id) {
 		RaceCentral raceCentral = service.getCentralById(id);
 		return raceCentral;
 	}
-	
+
 	@PutMapping("/{id}")
 	public RaceCentral update(@PathVariable(name = "id") Long id) { // aqui pode atualilzar de duas maneiras.
 		return service.autoUpdate(id);
 	}
-	
+
 	@PutMapping("/manual/{id}") // manual update
-	public RaceCentral manualUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceCentralDTO raceCentralDTO) {
+	public RaceCentral manualUpdate(@PathVariable(name = "id") Long id,
+			@Valid @RequestBody RaceCentralDTO raceCentralDTO) {
 		return service.manualUpdate(id, raceCentralDTO);
 	}
 }
