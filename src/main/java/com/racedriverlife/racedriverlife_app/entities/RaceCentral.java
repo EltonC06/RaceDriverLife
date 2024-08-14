@@ -1,10 +1,6 @@
 package com.racedriverlife.racedriverlife_app.entities;
 
-import java.util.ArrayList;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "tb_race_central")
@@ -32,12 +27,10 @@ public class RaceCentral {
 	@JoinColumn(name = "race_id", nullable = false)
 	private Race race;
 	
-	
-	
 	public RaceCentral() {
 		
 	}
-
+	
 	public RaceCentral(Race race) {
 		super();
 		this.racesWon = 0;
@@ -48,7 +41,6 @@ public class RaceCentral {
 	public Long getCentralId() {
 		return centralId;
 	}
-
 
 	public Integer getRacesWon() {
 		return racesWon;
@@ -73,39 +65,6 @@ public class RaceCentral {
 	public void setRace(Race race) {
 		this.race = race;
 	}
-	
-	
-
-	public void createRace(ArrayList<String> tasksName) {
-		endRace();
-		for (String taskName : tasksName) {
-			race.addTask(new Task(taskName, race));
-		}
-		race.setIsActive(true);
-	}
-	
-	public void endRace() {
-		countPoints();
-		resetRace();
-	}
-	
-	private void countPoints() {
-		this.racesDisputed += 1;
-		if (race.getTaskQuantity().equals(race.countCompletedTasks())) {
-			this.racesWon += 1;
-		}
-		else {
-		}
-		
-	}
-	
-	private void resetRace() {
-		race.setDoneTasks(0);
-		race.setTaskQuantity(0);
-		race.setIsActive(false);
-		race.resetTaskList();
-
-	}
 
 	@Override
 	public int hashCode() {
@@ -122,9 +81,5 @@ public class RaceCentral {
 			return false;
 		RaceCentral other = (RaceCentral) obj;
 		return Objects.equals(centralId, other.centralId);
-	}
-
-	
-	
-	
+	}	
 }

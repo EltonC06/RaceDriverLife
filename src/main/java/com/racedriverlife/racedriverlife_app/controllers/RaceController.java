@@ -39,5 +39,4 @@ public class RaceController {
 	public Race update(@PathVariable(name = "id") Long id, @Valid @RequestBody RaceDTO raceDTO) {
 		return service.update(id, raceDTO);
 	}
-	
 }

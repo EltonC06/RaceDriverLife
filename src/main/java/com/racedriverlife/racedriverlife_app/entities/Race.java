@@ -14,8 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "tb_race")
@@ -31,8 +29,7 @@ public class Race {
 
 	@OneToMany(mappedBy = "race", cascade = CascadeType.ALL) // uma corrida pode estar associada a varias tarefas
 	@JsonIgnore
-	public List<Task> taskList; // program to interface
-	// corrida não recebe id das tarefas (para não criar uma lista)
+	public List<Task> taskList; 
 
 	public Race() {
 		super();
@@ -88,26 +85,33 @@ public class Race {
 		this.countTotalTasks();
 	}
 
-	public void removeTask(Integer taskId) {
+	public void removeTask(Long taskId) {
 		for (Task tk : taskList) {
 			if (tk.getTaskId().equals(taskId)) {
 				taskList.remove(tk);
 			}
 		}
 	}
+	
+	public boolean isFinished() {
+		Integer totalDoneAndMissedTasks = this.getDoneTasks() + this.getMissedTasks();
 
-	public void changeTaskStatus(String taskStatus, Integer taskId) {
-		taskList.get(taskId).setTaskStatus(taskStatus);
-		this.countTotalTasks();
+		if (this.getTaskQuantity() != 0 && totalDoneAndMissedTasks.equals(this.getTaskQuantity())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void resetTaskList() {
+		taskList.clear();
 	}
 
 	public void countTotalTasks() {
-		Integer totalTasks = 0;
+		Integer totalTasks = taskList.size();
 		Integer completedTasks = countCompletedTasks();
 		Integer missedTasks = countMissedTasks();
-		for (Task tk : taskList) {
-			totalTasks += 1;
-		}
+
 		this.doneTasks = completedTasks;
 		this.taskQuantity = totalTasks;
 		this.missedTasks = missedTasks;
@@ -118,17 +122,7 @@ public class Race {
 			this.isActive = true;
 		}
 	}
-
-	private Integer countMissedTasks() {
-		Integer missedTasks = 0;
-		for (Task tk : taskList) {
-			if (tk.getTaskStatus().equals(TaskStatus.MISSED.toString())) {
-				missedTasks += 1;
-			}
-		}
-		return missedTasks;
-	}
-
+	
 	protected Integer countCompletedTasks() {
 		Integer completedTasks = 0;
 		for (Task tk : taskList) {
@@ -138,19 +132,15 @@ public class Race {
 		}
 		return completedTasks;
 	}
-
-	public void resetTaskList() {
-		taskList.clear();
-	}
-
-	public boolean isFinished() {
-		Integer totalDoneAndMissedTasks = this.getDoneTasks() + this.getMissedTasks();
-
-		if (this.getTaskQuantity() != 0 && totalDoneAndMissedTasks.equals(this.getTaskQuantity())) {
-			return true;
-		} else {
-			return false;
+	
+	private Integer countMissedTasks() {
+		Integer missedTasks = 0;
+		for (Task tk : taskList) {
+			if (tk.getTaskStatus().equals(TaskStatus.MISSED.toString())) {
+				missedTasks += 1;
+			}
 		}
+		return missedTasks;
 	}
 
 	@Override
@@ -169,5 +159,4 @@ public class Race {
 		Race other = (Race) obj;
 		return Objects.equals(raceId, other.raceId);
 	}
-
 }

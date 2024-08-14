@@ -5,36 +5,31 @@ import java.util.Objects;
 import com.racedriverlife.racedriverlife_app.entities.enums.TaskStatus;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.transaction.Transactional;
 
-@Entity // é uma entidade (tabela)
-@Table(name = "tb_task") // nome da tabela
+@Entity
+@Table(name = "tb_task")
 public class Task {
 	
-	@Id // é uma chave primaria
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // gerar id automatico
 	private Long taskId;
 	private String taskName;
-	
 	private String taskStatus;
 	
-	// muitas tarefas podem estar associada a uma unica corrida
-	@ManyToOne
-	@JoinColumn(name = "race_id", referencedColumnName = "raceId") // so pode ser criada se tem uma classe race associada
+	@ManyToOne // muitas tarefas podem estar associada a uma unica corrida
+	@JoinColumn(name = "race_id", referencedColumnName = "raceId")
 	private Race race;
 	
 	public Task() {
 		
 	}
-
-
+	
 	public Task(String taskName, Race race) {
 		super();
 		this.taskName = taskName;
@@ -42,8 +37,7 @@ public class Task {
 		this.race = race;
 		race.addTask(this);
 	}
-
-
+	
 	public Long getTaskId() {
 		return taskId;
 	}
@@ -71,8 +65,7 @@ public class Task {
 	public void setRace(Race race) {
 		this.race = race;
 	}
-
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(taskId);
@@ -89,8 +82,4 @@ public class Task {
 		Task other = (Task) obj;
 		return Objects.equals(taskId, other.taskId);
 	}
-	
-	
-	
-	
 }

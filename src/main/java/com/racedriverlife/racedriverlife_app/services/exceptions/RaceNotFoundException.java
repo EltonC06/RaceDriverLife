@@ -6,6 +6,4 @@ public class RaceNotFoundException extends RuntimeException {
 	public RaceNotFoundException(Object id) {
 		super("Race doesn't exists. Id " + id);
 	}
-
-	
 }

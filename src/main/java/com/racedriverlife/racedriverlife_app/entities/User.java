@@ -3,7 +3,6 @@ package com.racedriverlife.racedriverlife_app.entities;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "tb_user")
@@ -24,10 +22,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	
-	
 	@Column(nullable = false)
 	private String userName;
-	
 	
 	private String password;
 	
@@ -35,7 +31,6 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
 	@JoinColumn(name = "race_central_id", nullable = false)
 	private RaceCentral raceCentral;
-	
 	
 	public User() {
 		
@@ -76,12 +71,6 @@ public class User {
 		this.raceCentral = raceCentral;
 	}
 
-	public void resetStorage() {
-		raceCentral.setRacesDisputed(0);
-		raceCentral.setRacesWon(0);
-		raceCentral.endRace();
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(userId);
@@ -98,5 +87,4 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
 	}
-	
 }

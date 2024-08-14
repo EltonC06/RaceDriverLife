@@ -14,7 +14,6 @@ public class UserDTO {
 	@Pattern(regexp = "^(?=.*\\d).{4,8}$", message = "Password must be between 4 and 8 digits long and include at least one numeric digit.")
 	private String password;
 	
-	
 	public UserDTO() {
 		
 	}
@@ -25,7 +24,6 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	
 	public String getUserName() {
 		return userName.toLowerCase();
 	}
@@ -41,6 +39,4 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
 }

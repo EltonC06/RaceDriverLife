@@ -6,9 +6,7 @@ public class TaskDTO {
 	
 	@NotBlank(message = "Taskname can't be empty")
 	private String taskName;
-	
 	private Long raceId;
-	
 	private String taskStatus;
 	
 	public TaskDTO() {
@@ -45,5 +43,4 @@ public class TaskDTO {
 	public void setTaskStatus(String taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-	
 }

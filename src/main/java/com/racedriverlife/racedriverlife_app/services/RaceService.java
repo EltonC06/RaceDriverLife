@@ -24,19 +24,8 @@ public class RaceService {
 		List<Race> raceList = this.repository.findAll();
 
 		return raceList;
-		
 	}
 	
-	private RaceDTO convertToDTO(Race rc) {
-		RaceDTO raceDTO = new RaceDTO();
-		
-		raceDTO.setActive(rc.getIsActive());
-		raceDTO.setDoneTasks(rc.getDoneTasks());
-		raceDTO.setTaskQuantity(rc.getTaskQuantity());
-		
-		return raceDTO;
-	}
-
 	public Race getRaceById(Long id) {
 		Optional<Race> obj = repository.findById(id);
 		
@@ -50,8 +39,6 @@ public class RaceService {
 	public Race save(Race race) {
 		return this.repository.save(race);
 	}
-	
-
 	
 	public Race update(Long id, RaceDTO raceDTO) {
 		try {
@@ -104,7 +91,4 @@ public class RaceService {
 		entity.countTotalTasks();
 		return entity;
 	}
-	
-
-		
 }
