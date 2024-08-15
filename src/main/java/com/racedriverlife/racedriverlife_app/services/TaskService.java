@@ -1,6 +1,5 @@
 package com.racedriverlife.racedriverlife_app.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -38,15 +37,7 @@ public class TaskService {
 
 	public List<Task> getRaceBasedTask(Long id) { // pegando todas as tarefas especifica de um usuario
 		if (raceRepository.existsById(id)) {
-			List<Task> allTasks = this.repository.findAll(); // solução temporaria
-
-			List<Task> result = new ArrayList<>();
-
-			for (Task t : allTasks) {
-				if (convertEntityToDTO(t).getRaceId().equals(id)) {
-					result.add(t);
-				}
-			}
+			List<Task> result = repository.findByRace(raceService.getRaceById(id));
 			return result;
 		} else {
 			throw new DatabaseException("Resource not found. Id " + id);
@@ -104,19 +95,10 @@ public class TaskService {
 
 	public void deleteRaceBasedTasks(Long id) {
 		if (raceRepository.existsById(id)) {
+			List<Task> result = repository.findByRace(raceService.getRaceById(id));
 
-			List<Task> allTasks = this.repository.findAll();
+			repository.deleteAll(result);
 
-			List<Task> result = new ArrayList<>();
-
-			for (Task t : allTasks) {
-				if (convertEntityToDTO(t).getRaceId().equals(id)) {
-					result.add(t); // lista so das tarefas do id do usuario
-				}
-			}
-			for (Task t : result) {
-				repository.delete(t); // deletando todas as tarefas da lista
-			}
 			updateRaceData(id);
 		} else {
 			throw new DatabaseException("Resource not found. Id " + id);
@@ -150,16 +132,6 @@ public class TaskService {
 			}
 		}
 		return convertedTask;
-	}
-
-	private TaskDTO convertEntityToDTO(Task task) {
-		TaskDTO taskDTO = new TaskDTO();
-
-		taskDTO.setTaskName(task.getTaskName());
-		taskDTO.setTaskStatus(task.getTaskStatus());
-		taskDTO.setRaceId(task.getRace().getRaceId());
-
-		return taskDTO;
 	}
 
 	private Race updateRaceData(Long id) {

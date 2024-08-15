@@ -96,10 +96,10 @@ public class RaceCentralService {
 	private void checkRaceStatus(Long id) {
 		RaceCentral raceCentral = getCentralById(id);
 		Race race = raceService.getRaceById(id);
+		
 		if (race.isFinished()) {
-
 			raceCentral.setRacesDisputed(raceCentral.getRacesDisputed() + 1);
-
+			
 			if (race.getDoneTasks().equals(race.getTaskQuantity())) {
 				raceCentral.setRacesWon(raceCentral.getRacesWon() + 1);
 			}
