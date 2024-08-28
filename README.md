@@ -1,172 +1,172 @@
 # Race Driver Life
 
-(https://github.com/EltonC06/RaceDriverLife/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/EltonC06/RaceDriverLife/blob/main/LICENSE)
 
-## Sobre o Projeto
+## About the Project
 
-Race Driver Life é uma aplicação Java Spring Boot web back-end criada para fins educacionais.
+Race Driver Life is a Java Spring Boot web back-end application created for educational purposes.
 
-A aplicação tem como objetivo motivar os usuários a serem mais produtivos, simulando tarefas do cotidiano como se fosse uma corrida automobilística. Os usuários implementam e gerenciam suas tarefas com o objetivo de completá-las para vencer a corrida do dia.
+The application's objective is to motivate the users to be more productive by simulating daily tasks as if they were part of a car race. Users create and manage their tasks with the goal of completing them to win the race of the day.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-### Back End
+### Back-End
 - Java (Spring Boot)
 - MySQL
 
-## Como Executar o Projeto
+## How to Run the Project
 
-### Pré-requisitos
-- IDE para Java (Spring Tool Suite recomendado)
+### Prerequisites
+- Java IDE (Spring Tool Suite recomended)
 - Java 17
 - MySQL
 
-### Passo a Passo
+### Step-by-Step Guide
 
-1. **Clonar o Repositório**
+1. **Clone the Repository**
    ```bash
    git clone git@github.com:EltonC06/RaceDriverLife.git
    ```
 
-2. **Configurar o Banco de Dados**
-   - Crie um banco de dados MySQL e configure as credenciais (URL do banco, usuário, senha) no arquivo de configuração do projeto: `src/main/resources/application.properties`.
+2. **Configure the Database**
+   - Create a MySQL database and configure its credentials (database URL, user, password) in the project configuration file located at: `src/main/resources/application.properties`.
 
-3. **Entrar na Pasta do Projeto**
-   - Abra o projeto em uma IDE Java com suporte ao Spring Boot.
+3. **Open the Project**
+   - Open the project in a Java IDE with Spring Boot support (Spring Tool Suite is recomemended).
 
-4. **Executar o Programa**
-   - Na aba superior da tela clique em `run` racedriverlife-app.
+4. **Run the Application**
+   - In your IDE, click to run the application.
 
-5. **Testando a Aplicação**
-   - Use um cliente HTTP, como o **Postman**, para testar as requisições **GET**, **PUT**, **POST** e **DELETE** para as entidades **Usuário**, **RaceCentral**, **Race** e **Tasks**.
+5. **Testing the Application**
+   - Since the application does not have a front-end interface, use a HTTP client like Postman to interact with the API endpoints.
 
-## Endpoints da API
+## API Endpoints
 
-Aqui estão os principais endpoints disponíveis para interação com a API:
+Here are the main endpoints available for interacting with the application:
 
-### Usuário
+### User
 
-- **Criar Usuário**
-  - **Método:** `POST`
+- **Create User**
+  - **Method:** `POST`
   - **URL:** `localhost:8080/users`
-  - **Descrição:** Cria um novo usuário.
+  - **Description:** Create a new user.
   - **Body:** `{ "userName": "Guilherme", "password": "4321" }`
 
-- **Obter Usuário por ID**
-  - **Método:** `GET`
+- **Get user by id**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/users/{id}`
-  - **Descrição:** Obtém os detalhes de um usuário específico.
+  - **Description:** Get an user by id and its data.
 
-- **Obter Usuários**
-  - **Método:** `GET`
+- **Get Users**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/users`
-  - **Descrição:** Obtém todos os usuários registrados até o momento.
+  - **Description:** Get all users created.
 
-- **Atualizar Usuário**
-  - **Método:** `PUT`
+- **Update User**
+  - **Method:** `PUT`
   - **URL:** `localhost:8080/users/{id}`
-  - **Descrição:** Atualiza as informações de um usuário existente.
+  - **Description:** Update the information about the user selected.
   - **Body:** `{ "userName": "Guilherme", "password": "novaSenha1" }`
 
-- **Deletar Usuário**
-  - **Método:** `DELETE`
+- **Delete User**
+  - **Method:** `DELETE`
   - **URL:** `localhost:8080/users/{id}`
-  - **Descrição:** Deleta um usuário específico.
+  - **Description:** Delete an user.
 
 ### RaceCentral
 
-- **Obter RaceCentral por ID**
-  - **Método:** `GET`
+- **Get RaceCentral by Id**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/racecentrals/{id}`
-  - **Descrição:** Obtém os detalhes de um RaceCentral específico.
+  - **Description:** Get the data of a specific RaceCentral.
 
-- **Obter RaceCentrals**
-  - **Método:** `GET`
+- **Get RaceCentrals**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/racecentrals`
-  - **Descrição:** Obtém todos os RaceCentrals registrados até o momento.
+  - **Description:** Get all RaceCentrals created.
 
-- **Atualizar automaticamente o RaceCentral**
-  - **Método:** `PUT`
-  - **URL:** `localhost:8080/racecentrals/manual/{id}`
-  - **Descrição:** Caso o usuário tenha concluído uma corrida, atualiza automaticamente os dados do seu RaceCentral.
+- **Update RaceCentral automatically**
+  - **Method:** `PUT`
+  - **URL:** `localhost:8080/racecentrals/{id}`
+  - **Description:** If an user finishes a race, this request update automatically the RaceCentral data of the specific user.
 
-- **Atualizar manualmente o RaceCentral**
-  - **Método:** `PUT`
+- **Update RaceCentral manually**
+  - **Method:** `PUT`
   - **URL:** `localhost:8080/racecentrals/manual/{id}`
-  - **Descrição:** Atualiza manualmente as informações de um RaceCentral existente.
+  - **Description:** Update manually the information of a specific RaceCentral.
   - **Body:** `{ "racesWon": 1, "racesDisputed": 1 }`
 
 ### Race
 
-- **Obter Race por ID**
-  - **Método:** `GET`
+- **Get Race by Id**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/races/{id}`
-  - **Descrição:** Obtém os detalhes de uma Race específica.
+  - **Description:** Get a specific Race.
 
-- **Obter Races**
-  - **Método:** `GET`
+- **Get Races**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/races`
-  - **Descrição:** Obtém todas as Races registradas até o momento.
+  - **Description:** Get all Races created.
 
-- **Atualizar Race** (Não é recomendado o uso deste método)
-  - **Método:** `PUT` 
+- **Update Race** (Not recommended to use)
+  - **Method:** `PUT` 
   - **URL:** `localhost:8080/races/{id}`
-  - **Descrição:** Atualiza as informações de uma Race existente. 
+  - **Description:** Update the information of the Race selected. 
   - **Body:** `{ "doneTasks": 5, "taskQuantity": 10, "isActive": true }`
 
-### Tarefa (Task)
+### Task
 
-- **Criar Tarefa**
-  - **Método:** `POST`
+- **Create Task**
+  - **Method:** `POST`
   - **URL:** `localhost:8080/tasks`
-  - **Descrição:** Cria uma nova tarefa.
-  - **Body:** `{ "raceId": 1, "taskName": "Passear", "taskStatus": "PENDING" }`  (RaceId é o mesmo Id do usuário)
+  - **Description:** Create a new task.
+  - **Body:** `{ "raceId": 1, "taskName": "Go for a walk", "taskStatus": "PENDING" }` (RaceId is the same id of its user)
 
-- **Obter Tarefa por ID**
-  - **Método:** `GET`
+- **Get Task by Id**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/tasks/{id}`
-  - **Descrição:** Obtém os detalhes de uma tarefa específica.
+  - **Description:** Get a specific Task.
 
-- **Obter Tarefas**
-  - **Método:** `GET`
-  - **URL:** `localhost:8080/tasks}`
-  - **Descrição:** Obtém todas as tarefas registradas até o momento.
+- **Get Tasks**
+  - **Method:** `GET`
+  - **URL:** `localhost:8080/tasks`
+  - **Description:** Get all Tasks created.
 
-- **Obter Todas as Tarefas Baseadas na Corrida**
-  - **Método:** `GET`
+- **Get Race Based Tasks**
+  - **Method:** `GET`
   - **URL:** `localhost:8080/tasks/racebased/{id}`
-  - **Descrição:** Obtém todas as tarefas de um usuário específico.
+  - **Description:** Get all Tasks created of a specific user.
 
-- **Atualizar Tarefa**
-  - **Método:** `PUT`
+- **Update Tasks**
+  - **Method:** `PUT`
   - **URL:** `localhost:8080/tasks/{id}`
-  - **Descrição:** Atualiza as informações de uma tarefa existente.
-  - **Body:** `{ "raceId": "1", "taskName": "Fazer compras", "taskStatus": "DONE" }` (RaceId é o mesmo Id do usuário)
+  - **Description:** Update the information of a specific Task.
+  - **Body:** `{ "raceId": "1", "taskName": "Go shopping", "taskStatus": "DONE" }`
 
-- **Deletar Tarefa**
-  - **Método:** `DELETE`
+- **Delete Task**
+  - **Method:** `DELETE`
   - **URL:** `localhost:8080/tasks/{id}`
-  - **Descrição:** Deleta uma tarefa específica.
+  - **Description:** Delete a specific Task.
 
-- **Deletar Todas Tarefas Baseada na Corrida**
-  - **Método:** `DELETE`
+- **Delete Race Based Tasks**
+  - **Method:** `DELETE`
   - **URL:** `localhost:8080/tasks/racebased/{id}`
-  - **Descrição:** Deleta todas as tarefas de um usuário específico.
+  - **Description:** Delete all tasks from a specif RaceId.
 
 
-### Observações
+### Observations
 
-- Quando um novo usuário é criado (Através do método Post), as entidades RaceCentral e Race são geradas e associadas automaticamente ao usuário.
-- O programa foi testado utilizando apenas Spring Tool Suite.
-- Certifique-se de que o MySQL esteja em execução localmente.
+- When a new user is created (by POST method), the entity RaceCentral and Race will be created and associated automatically to the user.
+- The program was tested using only Spring Tool Suite.
+- Ensure that MySQL is running locally.
 
-## Como Você Pode Contribuir
+## How You Can Contribute
 
-- Implementação do Spring Security para as senhas dos usuários.
-- Melhorar o gerenciamento e validação das tarefas.
-- Desenvolver uma interface front-end para visualização dos dados e resultados das corridas.
+- Spring Security implementation for user passwords.
+- Improve the task management and validation.
+- Develop a front-end interface for data visualization.
 
-## Autor
+## Author
 
 Elton da Costa Oliveira
 
