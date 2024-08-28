@@ -21,7 +21,7 @@ public class RaceCentral {
 	private Integer racesWon;
 	private Integer racesDisputed;
 
-	@OneToOne(cascade = CascadeType.ALL) // a classe Race não pode existir sem essa
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "race_id", nullable = false)
 	private Race race;
 

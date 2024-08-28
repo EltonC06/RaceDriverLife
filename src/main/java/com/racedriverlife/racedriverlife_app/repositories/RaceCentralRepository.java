@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.racedriverlife.racedriverlife_app.entities.RaceCentral;
 
 @Repository
-public interface RaceCentralRepository extends JpaRepository<RaceCentral, Long> { // passa a classe e o tipo da seu id
+public interface RaceCentralRepository extends JpaRepository<RaceCentral, Long> {
 
 }

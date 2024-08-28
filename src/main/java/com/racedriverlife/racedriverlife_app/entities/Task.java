@@ -17,12 +17,12 @@ import jakarta.persistence.Table;
 public class Task {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) // gerar id automatico
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long taskId;
 	private String taskName;
 	private String taskStatus;
 
-	@ManyToOne // muitas tarefas podem estar associada a uma unica corrida
+	@ManyToOne
 	@JoinColumn(name = "race_id", referencedColumnName = "raceId")
 	private Race race;
 

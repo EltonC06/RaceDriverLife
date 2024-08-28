@@ -26,7 +26,7 @@ public class Race {
 	private Integer taskQuantity;
 	private Boolean isActive = false;
 
-	@OneToMany(mappedBy = "race", cascade = CascadeType.ALL) // uma corrida pode estar associada a varias tarefas
+	@OneToMany(mappedBy = "race", cascade = CascadeType.ALL)
 	@JsonIgnore
 	public List<Task> taskList;
 

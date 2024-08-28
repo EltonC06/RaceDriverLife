@@ -40,7 +40,7 @@ public class UserController {
 
 	@PostMapping
 	public User insert(@Valid @RequestBody UserDTO userDTO) {
-		User savedUser = service.save(userDTO); // transferindo para outra classe
+		User savedUser = service.save(userDTO);
 		return savedUser;
 	}
 

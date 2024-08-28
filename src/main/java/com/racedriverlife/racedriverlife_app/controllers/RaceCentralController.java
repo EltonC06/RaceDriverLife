@@ -36,7 +36,7 @@ public class RaceCentralController {
 	}
 
 	@PutMapping("/{id}")
-	public RaceCentral update(@PathVariable(name = "id") Long id) { // aqui pode atualilzar de duas maneiras.
+	public RaceCentral update(@PathVariable(name = "id") Long id) {
 		return service.autoUpdate(id);
 	}
 

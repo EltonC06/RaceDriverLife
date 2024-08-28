@@ -35,7 +35,7 @@ public class TaskService {
 		return this.repository.findAll();
 	}
 
-	public List<Task> getRaceBasedTask(Long id) { // pegando todas as tarefas especifica de um usuario
+	public List<Task> getRaceBasedTask(Long id) {
 		if (raceRepository.existsById(id)) {
 			List<Task> result = repository.findByRace(raceService.getRaceById(id));
 			return result;

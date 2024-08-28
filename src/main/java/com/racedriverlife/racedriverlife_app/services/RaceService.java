@@ -44,9 +44,9 @@ public class RaceService {
 
 	public Race update(Long id, RaceDTO raceDTO) {
 		try {
-			Race entity = repository.getReferenceById(id); // corrida que vai mudar
+			Race entity = repository.getReferenceById(id);
 
-			Race race = convertDTOtoEntity(raceDTO); // corrida ja alterada qu vai substituir a outras
+			Race race = convertDTOtoEntity(raceDTO);
 
 			entity = updateData(entity, race);
 

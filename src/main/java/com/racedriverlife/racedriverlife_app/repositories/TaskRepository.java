@@ -10,7 +10,7 @@ import com.racedriverlife.racedriverlife_app.entities.Task;
 
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long> { // passa a classe e o tipo do seu id
+public interface TaskRepository extends JpaRepository<Task, Long> {
 	
-	List<Task> findByRace(Race race); // query automaticamente gerada pelo jpa
+	List<Task> findByRace(Race race);
 }

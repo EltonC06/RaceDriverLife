@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-	@ExceptionHandler(ResourceNotFoundException.class) // aqui eu crio um metodo de uma classe exception que ja existe
+	@ExceptionHandler(ResourceNotFoundException.class) 
 	public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
 		String error = "Resource not found";
 		HttpStatus status = HttpStatus.NOT_FOUND;
@@ -26,7 +26,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 
-	@ExceptionHandler(DatabaseException.class) // aqui eu crio um metodo de uma classe exception que ja existe
+	@ExceptionHandler(DatabaseException.class) 
 	public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
 		String error = "Resource not found";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -35,7 +35,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 
-	@ExceptionHandler(UserAlreadyExistsException.class) // aqui eu crio um metodo de uma classe exception que ja existe
+	@ExceptionHandler(UserAlreadyExistsException.class) 
 	public ResponseEntity<StandardError> database(UserAlreadyExistsException e, HttpServletRequest request) {
 		String error = "Username conflict";
 		HttpStatus status = HttpStatus.CONFLICT;
@@ -44,7 +44,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 
-	@ExceptionHandler(RaceNotFoundException.class) // aqui eu crio um metodo de uma classe exception que ja existe
+	@ExceptionHandler(RaceNotFoundException.class) 
 	public ResponseEntity<StandardError> database(RaceNotFoundException e, HttpServletRequest request) {
 		String error = "Race doesn't exists";
 		HttpStatus status = HttpStatus.NOT_FOUND;

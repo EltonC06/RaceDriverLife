@@ -38,7 +38,7 @@ public class TaskController {
 	}
 
 	@GetMapping("/racebased/{id}")
-	public List<Task> findRaceBasedTasks(@PathVariable(name = "id") Long id) { // tarefa especifica de um id do usuario
+	public List<Task> findRaceBasedTasks(@PathVariable(name = "id") Long id) {
 		List<Task> result = service.getRaceBasedTask(id);
 		return result;
 	}

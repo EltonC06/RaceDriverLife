@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 @Table(name = "tb_user")
 public class User {
 
-	@Id // definindo chave primaria
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
@@ -27,7 +27,7 @@ public class User {
 	private String password;
 
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL) // a classe raceCentral não pode existir sem antes existir essa
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "race_central_id", nullable = false)
 	private RaceCentral raceCentral;
 
