@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class UserDTO {
 
 	@NotBlank(message = "Username can't be empty.")
-	@Size(min = 3, max = 18, message = "Username need to have more than 2 character")
+	@Size(min = 3, max = 18, message = "Username need to have more than 2 and less than 18 characters")
 	@Pattern(regexp = "^([a-zA-Z])[a-zA-Z_-]*[\\w_-]*[\\S]$|^([a-zA-Z])[0-9_-]*[\\S]$|^[a-zA-Z]*[\\S]$")
 	private String userName;
 

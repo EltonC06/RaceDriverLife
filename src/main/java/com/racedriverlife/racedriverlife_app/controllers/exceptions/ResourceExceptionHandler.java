@@ -36,7 +36,7 @@ public class ResourceExceptionHandler {
 	}
 
 	@ExceptionHandler(UserAlreadyExistsException.class) 
-	public ResponseEntity<StandardError> database(UserAlreadyExistsException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> userAlreadyExists(UserAlreadyExistsException e, HttpServletRequest request) {
 		String error = "Username conflict";
 		HttpStatus status = HttpStatus.CONFLICT;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
@@ -45,7 +45,7 @@ public class ResourceExceptionHandler {
 	}
 
 	@ExceptionHandler(RaceNotFoundException.class) 
-	public ResponseEntity<StandardError> database(RaceNotFoundException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> raceNotFound(RaceNotFoundException e, HttpServletRequest request) {
 		String error = "Race doesn't exists";
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
